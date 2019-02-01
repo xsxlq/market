@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.ShopGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.ShopGoods" >
+    <id column="goodsId" property="goodsid" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsPrice" property="goodsprice" jdbcType="DOUBLE" />
+    <result column="goodsTypeId" property="goodstypeid" jdbcType="INTEGER" />
+    <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR" />
+    <result column="goodsDesc" property="goodsdesc" jdbcType="VARCHAR" />
+    <result column="goodsExchange" property="goodsexchange" jdbcType="INTEGER" />
+    <result column="goodsIntegral" property="goodsintegral" jdbcType="INTEGER" />
+    <result column="goodsDetail" property="goodsdetail" jdbcType="VARCHAR" />
+    <result column="goodsIntroduct" property="goodsintroduct" jdbcType="VARCHAR" />
+    <result column="goodsQuality" property="goodsquality" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsId, goodsName, goodsPrice, goodsTypeId, goodsImg, goodsDesc, goodsExchange, 
+    goodsIntegral, goodsDetail, goodsIntroduct, goodsQuality
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopgoods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <!--查询所有-->
+  <select id="selectAllGoods" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from shopgoods
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shopgoods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.ShopGoods" >
+    insert into shopgoods (goodsId, goodsName, goodsPrice, 
+      goodsTypeId, goodsImg, goodsDesc, 
+      goodsExchange, goodsIntegral, goodsDetail, 
+      goodsIntroduct, goodsQuality)
+    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{goodsprice,jdbcType=DOUBLE}, 
+      #{goodstypeid,jdbcType=INTEGER}, #{goodsimg,jdbcType=VARCHAR}, #{goodsdesc,jdbcType=VARCHAR}, 
+      #{goodsexchange,jdbcType=INTEGER}, #{goodsintegral,jdbcType=INTEGER}, #{goodsdetail,jdbcType=VARCHAR}, 
+      #{goodsintroduct,jdbcType=VARCHAR}, #{goodsquality,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.ShopGoods" >
+    insert into shopgoods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice,
+      </if>
+      <if test="goodstypeid != null" >
+        goodsTypeId,
+      </if>
+      <if test="goodsimg != null" >
+        goodsImg,
+      </if>
+      <if test="goodsdesc != null" >
+        goodsDesc,
+      </if>
+      <if test="goodsexchange != null" >
+        goodsExchange,
+      </if>
+      <if test="goodsintegral != null" >
+        goodsIntegral,
+      </if>
+      <if test="goodsdetail != null" >
+        goodsDetail,
+      </if>
+      <if test="goodsintroduct != null" >
+        goodsIntroduct,
+      </if>
+      <if test="goodsquality != null" >
+        goodsQuality,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsimg != null" >
+        #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdesc != null" >
+        #{goodsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsexchange != null" >
+        #{goodsexchange,jdbcType=INTEGER},
+      </if>
+      <if test="goodsintegral != null" >
+        #{goodsintegral,jdbcType=INTEGER},
+      </if>
+      <if test="goodsdetail != null" >
+        #{goodsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsintroduct != null" >
+        #{goodsintroduct,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsquality != null" >
+        #{goodsquality,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsxlq.market.pojo.ShopGoods" >
+    update shopgoods
+    <set >
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodstypeid != null" >
+        goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsimg != null" >
+        goodsImg = #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdesc != null" >
+        goodsDesc = #{goodsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsexchange != null" >
+        goodsExchange = #{goodsexchange,jdbcType=INTEGER},
+      </if>
+      <if test="goodsintegral != null" >
+        goodsIntegral = #{goodsintegral,jdbcType=INTEGER},
+      </if>
+      <if test="goodsdetail != null" >
+        goodsDetail = #{goodsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsintroduct != null" >
+        goodsIntroduct = #{goodsintroduct,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsquality != null" >
+        goodsQuality = #{goodsquality,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsxlq.market.pojo.ShopGoods" >
+    update shopgoods
+    set goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
+      goodsImg = #{goodsimg,jdbcType=VARCHAR},
+      goodsDesc = #{goodsdesc,jdbcType=VARCHAR},
+      goodsExchange = #{goodsexchange,jdbcType=INTEGER},
+      goodsIntegral = #{goodsintegral,jdbcType=INTEGER},
+      goodsDetail = #{goodsdetail,jdbcType=VARCHAR},
+      goodsIntroduct = #{goodsintroduct,jdbcType=VARCHAR},
+      goodsQuality = #{goodsquality,jdbcType=INTEGER}
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+</mapper>

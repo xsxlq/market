@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
     <h1>hello</h1>
-    <img src="../static/1.jpg"/>
-    <span th:text="${hello[0]}"></span>
-    <table>
-        <tr th:each="item,i : ${hello}">
-            <td th:text="${item}"></td>
-            <td th:text="${i.index}"></td>
-        </tr>
+    <!--<span th:text="${hello[0]}"></span>-->
+    <!--<table>-->
+        <!--<tr th:each="item,i : ${hello}">-->
+            <!--<td th:text="${item.id}"></td>-->
+            <!--<td th:text="${item.name}"></td>-->
+            <!--<td th:text="${item.age}"></td>-->
+        <!--</tr>-->
+    <!--</table>-->
+
+    <table class="test">
     </table>
-    哈哈  wang上修改
 </body>
+<script>
+    $(function(){
+        $.post("index","",function(data){
+            var i = data.length;
+            for(var j = 0;j<i;j++){
+                console.log(data[j]);
+                var str=`<tr><td>${data[j].goodsid}</td><td>${data[j].goodsname}</td><td></td></tr>`;
+                $(".test").append(str);
+            }
+        },'json')
+    })
+</script>
 </html>

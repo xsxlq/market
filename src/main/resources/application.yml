@@ -1,13 +1,45 @@
+#配置服务器
 server:
   port: 8080
+#配置spring
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      #spring.servlet.multipart.max-file-size限制单个文件的最大值
+      #spring.servlet.multipart.max-request-size限制上传的多个文件的总大小
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
   datasource:
-    name: xsxlq
-    url: jdbc:mysql://127.0.0.1:3306/quaintblog
+    name: quaint
+    url: jdbc:mysql://127.0.0.1:3306/market
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+  #配置javaMail
+  mail:
+    host: smtp.qq.com
+    #端口号465或587
+    port: 587
+    username: your_qq_num@qq.com
+    password: your_licenseKey_or_password
+    protocol: smtp
+    default-encoding: UTF-8
+#配置mybatis
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.xsxlq.market.pojo
@@ -17,4 +49,10 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+    page-size-zero: true
+fileUpload:
+  #上传的路径
+  rootSavePath:
+  #访问的地址
+  rootHttpPath:
 

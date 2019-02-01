@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.ShopGoodsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.ShopGoodsType" >
+    <id column="goodsTypeId" property="goodstypeid" jdbcType="INTEGER" />
+    <result column="goodsTypeName" property="goodstypename" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsTypeId, goodsTypeName, parentId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopgoodstype
+    where goodsTypeId = #{goodstypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shopgoodstype
+    where goodsTypeId = #{goodstypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.ShopGoodsType" >
+    insert into shopgoodstype (goodsTypeId, goodsTypeName, parentId
+      )
+    values (#{goodstypeid,jdbcType=INTEGER}, #{goodstypename,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.ShopGoodsType" >
+    insert into shopgoodstype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodstypeid != null" >
+        goodsTypeId,
+      </if>
+      <if test="goodstypename != null" >
+        goodsTypeName,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodstypename != null" >
+        #{goodstypename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsxlq.market.pojo.ShopGoodsType" >
+    update shopgoodstype
+    <set >
+      <if test="goodstypename != null" >
+        goodsTypeName = #{goodstypename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goodsTypeId = #{goodstypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsxlq.market.pojo.ShopGoodsType" >
+    update shopgoodstype
+    set goodsTypeName = #{goodstypename,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER}
+    where goodsTypeId = #{goodstypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

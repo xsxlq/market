@@ -2,47 +2,35 @@ package com.xsxlq.market.pojo;
 
 import lombok.Data;
 
-import java.util.Date;
 @Data
 public class Users {
-    private Integer userId;
+    private Integer id;
 
-    private String userName;
+    private String name;
 
-    private String userPwd;
+    private Integer age;
 
-    private String userEmail;
+    public Integer getId() {
+        return id;
+    }
 
-    private String userImageUrl;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    private String userNickName;
+    public String getName() {
+        return name;
+    }
 
-    private String userSays;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-    private String userPhone;
+    public Integer getAge() {
+        return age;
+    }
 
-    private Byte userSex;
-
-    private String userQq;
-
-    private String userAddress;
-
-    private String userLastLoginIp;
-
-    private Date userBirthday;
-
-    private String userDescription;
-
-    private String userSchool;
-
-    private Date userRegisterTime;
-
-    private String userRegisterIp;
-
-    private Byte userLock;
-
-    private Byte userFreeze;
-
-    private Byte userRank;
-
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }
