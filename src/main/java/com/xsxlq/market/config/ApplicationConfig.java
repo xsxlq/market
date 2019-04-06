@@ -15,7 +15,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         /**
          * 配置server虚拟路径，handler为前台访问的目录，locations为files相对应的本地路径
          */
-        registry.addResourceHandler("/upload/image/**").addResourceLocations("file:F:\\upload\\image\\");
+        registry.addResourceHandler("/upload/img/**").addResourceLocations("file:F:\\upload\\image\\");
         registry.addResourceHandler("/upload/video/**").addResourceLocations("file:G:/upload/video/");
 
         //阿里云(映射路径去除盘符)

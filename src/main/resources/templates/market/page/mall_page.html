@@ -10,12 +10,37 @@
     <link rel="icon" href="../../../static/img/page_icon.png"/>
     <link href="../../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
     <link href="../../../static/css/mall_page/mall_page_other.css" rel="stylesheet"/>
+    <link href="../../../static/css/comm/search.css">
+    <link rel="stylesheet" href="../../../static/iconfont/iconfont.css">
+    <style>
+        .all_product li{
+            float: left;
+            margin-right: 15px;
+            padding: 5px 10px;
+            display: inline-block;
+            border: 1px solid #DDD;
+        }
+        .product_content_div{
+            clear: both;
+        }
+        header .nav_search_input ,header .search_icon{
+            visibility: visible;
+        }
+        .icon-weizhi{
+            font-size: 14px;
+            color: red;
+            font-weight: 700;
+        }
+        .icon-shoucang{
+            font-size: 14px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 <header th:include="/market/header :: copy"></header>
 <div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
-<div th:include="/market/personal_nav :: personal_nav" class="personal_nav"></div>
 <div class="my_type_div">
     <ul>
         <li class="type_1">数码科技</li>
@@ -56,27 +81,48 @@
 <div class="temp_content" onmousedown="hideParticular()">
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="all_product">
+        <!--已选分类-->
+        <div style="width:800px;margin: 25px auto;">
+            <ul style="list-style: none">
+                <li>
+                    已选分类：
+                    <span class="selectGoodsType" style="color: #e4393c">全部</span>
+                </li>
+                <li>
+                    价格区间：0 -
+                    <input class="selectGoodsPrice" type="number" style="color: #e4393c;width: 60px"> 元
+                </li>
+                <li>
+                    已选成色：
+                    <select class="select_quality" style="border: none;outline: none;color: #e4393c;">
+                        <option value="11" >全部</option>
+                        <option value="10" >全新</option>
+                        <option value="5">95新</option>
+                        <option value="9">9成新</option>
+                        <option value="8">8成新</option>
+                        <option value="7">7成新</option>
+                        <option value="6">6成新</option>
+                    </select>
+                </li>
+                <li>
+                    <input class="re_select_type_button" type="button" value="重置" style="background: none;border: none;outline: none">
+                </li>
+                <li>
+                    <input class="select_type_button" type="button" value="确定" style="background: none;border: none;outline: none">
+                </li>
+            </ul>
+        </div>
         <div class="product_content_div">
-                <div class="detail_product" th:each="o:${null}">
-                    <input type="hidden" th:value="${null}" name="id"/>
-                    <div class="product_img_div">
-                        <img src="/img/home/feature_prodects/cont2.jpg" th:src="${null}" th:title="${null}" class="show_img"/>
-                    </div>
-                    <p class="show_tip" th:text="${null}"></p>
-                    <span class="detail_product_name" th:text="${null}" th:value="${null}">Big block Lether Bag</span><br/>
-                    <span class="detail_product_cost" th:text="'￥'+${null}+'元'">￥350.00元</span><br/>
-                    <span class="detail_buy product_1" th:value="${null}">加入购物车</span>
-                </div>
         </div>
     </div>
     <div class="pagination_div" onmouseleave="hideParticular()">
         <a class="pagination_lt">&lt;</a>
         <ul>
-            <li class="current_page"><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li><a>4</a></li>
-            <li><a>5</a></li>
+            <!--<li class="current_page"><a>1</a></li>-->
+            <!--<li><a>2</a></li>-->
+            <!--<li><a>3</a></li>-->
+            <!--<li><a>4</a></li>-->
+            <!--<li><a>5</a></li>-->
         </ul>
         <a class="pagination_gt">&gt;</a>
     </div>
@@ -85,4 +131,24 @@
     </footer>
 </div>
 </body>
+<script>
+    // $(function(){
+    //     $.post("/shopList","",function(shopData){
+    //         for(var i = 0;i<shopData.length;i++){
+    //             var str = `<div class="detail_product">
+    //                 <input type="hidden" name="id"/>
+    //                 <div class="product_img_div">
+    //                     <img src=${shopData[i].goodsimg} class="show_img"/>
+    //                 </div>
+    //                 <p class="show_tip">${shopData[i].goodsdesc}</p>
+    //                 <span class="detail_product_cost">¥${shopData[i].goodsprice}.00元</span><br/>
+    //                  <a class="product_name">【${shopData[i].shopQuality.name}】${shopData[i].goodsname}</a><br/>
+    //                 <span class="product_area">河南科技学院</span><br/>
+    //                 <span class="detail_buy product_1">收藏</span>
+    //             </div>`;
+    //             $(".product_content_div").append(str);
+    //         }
+    //     })
+    // })
+</script>
 </html>

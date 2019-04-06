@@ -27,12 +27,14 @@
 .first_info span {
     color: slateblue;
     font-weight: 600;
+    display: inline-block;
+    width: 90px;
 }
-.first_info input {
+.first_info input, .first_info .loginTime{
     border: 1px solid slateblue;
     border-radius: 5px;
     padding: 0.3em;
-    font-size: 1.1em;
+    font-size: 0.9em;
 }
 .update_button {
     margin: 5% 40%;
@@ -69,4 +71,13 @@ footer p {
     text-align: center;
     color: white;
     font-size: 1.2em;
+}
+.userIconBorder{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.userIcon{
+    max-height: 100px;
 }

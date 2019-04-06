@@ -3,52 +3,221 @@
 <head>
     <meta charset="UTF-8"/>
     <title>商品详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../../../static/img/page_icon.png"/>
     <link href="../../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
     <link href="../../../static/css/product/product_info.css" rel="stylesheet"/>
     <script src="../../../static/js/jquery-1.12.4.js"></script>
     <script src="../../../static/js/home/header_model_js.js"></script>
     <script src="../../../static/js/publish/product_info.js"></script>
+    <link href="../../../static/css/comm/loading.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../static/css/comm/media.css">
+    <style>
+        .every-comment{
+            margin-top: 10px;
+        }
+        .redFont{
+            margin-left: 5px;
+            font-weight: 700;
+            padding: 10px;
+            border-left: 5px solid #E74851;
+            /* border-bottom: 1px solid #d22222; */
+            color: #E74851;
+        }
+        .redColorLine{
+            border-bottom: 1px dotted #fcbb90;
+            margin-left: 30px;
+        }
+        .playColor{
+            color: #888;
+            font-size: 12px;
+            display: inline-block;
+            margin: 0px 3px;
+        }
+        .icon{
+            float: left;
+            width: 30px;
+            height: 30px;
+            border: 0px solid #D7D7D7;
+            transition:all 0.45s;
+            overflow: hidden;
+        }
+        .iconStr{
+            text-align: center;
+            line-height: 30px;
+            font-size: 14px;
+            color: white;
+            background-color: #d22222;
+            border-radius: 50%;
+        }
+        .iconImg img{
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        .contentInfo{
+            margin-left: 40px;
+            padding: 0 0 20px 10px;
+            /*background: #FCFEFF;
+            border: 1px solid #F7F7F7;*/
+            border-bottom: 1px dotted #ddd;
+        }
+        .contentInfo-reply{
+            margin-left: 40px;
+            padding: 0 0 20px 10px;
+            /*background: #FCFEFF;
+            border: 1px solid #F7F7F7;*/
+            border-bottom: 1px dotted #fcbb90;
+        }
+        .clear{
+            clear: both;
+        }
+        .icon:hover{
+            transform:scale(1.8);
+            border: 0px;
+        }
+        .info{
+            display: inline-block;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        @media only screen and (max-width: 767px){
+            .top_content{
+                width: 99%;
+            }
+            .publish_product_div{
+                padding-top: 1%;
+                width: 98%;
+                margin-left: 1%;
+                margin-top: 2%;
+                border-radius: 5px;
+                margin-bottom: 0;
+            }
+            .product_img_div{
+                width: 36%;
+                margin-left: 32%;
+                margin-top: 14px;
+            }
+            .product_info_div{
+                width: 90%;
+                padding: 10px;
+                line-height: 2.1em;
+                margin-top: 3%;
+            }
+            .product_info_div .what_info {
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .info_content{
+                font-size: 12px;
+            }
+            .buy_button {
+                width: 34%;
+                padding: 3px;
+                font-size: 14px;
+                background-color: slateblue;
+                color: white;
+                border-radius: 5px;
+                border: none;
+                margin-top: 2em;
+                margin-left: 33%;
+            }
+            .send_comment_button {
+                width: 21%;
+                padding: 0.3em;
+                font-size: 13px;
+                margin-left: 73%;
+            }
+            footer {
+                width: 98%;
+                border-radius: 5px;
+                height: 24px;
+                margin-left: 1%;
+                margin-top: 10px;
+            }
+            footer p {
+                font-size: 12px;
+                line-height: 24px;
+                padding-top: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+
 <header th:include="/market/header :: copy"></header>
 <div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
-<div th:include="/market/personal_nav :: personal_nav" class="personal_nav"></div>
+<div th:include="/market/loading :: loading" class="my_loading container"></div>
 <div class="top_content">
     <div class="publish_product_div">
         <div class="product_img_div">
-            <img src="/img/home/p4.jpeg" class="product_img" th:src="${null}"/>
+            <img class="product_img" th:src="${goodsInfo.goodsImg}"/>
         </div>
         <div class="product_info_div">
             <span class="what_info">商品名：</span>
-            <input type="hidden" th:value="${null}" class="id"/>
-            <span class="info_content" th:text="${null}">苹果6s</span><br/>
+            <input type="hidden" th:value="${goodsInfo.goodsId}" class="willLoveGoodsId"/>
+            <span class="info_content" th:text="${goodsInfo.goodsName}"></span><br/>
             <span class="what_info">成色：</span>
-            <span class="info_content" th:text="${null}+'成'">7成</span><br/>
-            <span class="what_info">数量：</span>
-            <span class="info_content" th:text="${null}">3</span><br/>
+            <span class="info_content" th:text="${goodsInfo.ShopQuality.name}"></span><br/>
             <span class="what_info">单价：</span>
-            <span class="info_content" th:text="'$'+${null}">20.00</span><br/>
-            <span class="what_info">详情：</span>
-            <span class="info_content" th:text="${null}">这是一个商品，联系电话1111111111</span><br/>
+            <span class="info_content" th:text="${goodsInfo.goodsPrice}"+"元"></span><br/>
             <span class="what_info">分类：</span>
-            <span class="info_content" th:text="${null}">数码科技-手机-苹果</span><br/>
-            <button class="buy_button" th:value="${null}">加入购物车</button>
+            <span class="info_content" th:text="${goodsInfo.shopGoodsType.goodstypename}"></span><br/>
+            <span class="what_info">发布时间：</span>
+            <span class="info_content" th:text="${goodsInfo.userGoods.addTimeStr}"></span><br/>
+            <input type="button" class="buy_button love" value="收藏">
+            <input type="hidden" class="Ilove">
+        </div>
+        <div style="clear: both;padding: 20px">
+            <ul class="what_info" style="background: #efefef;text-align: center;list-style:none;padding: 0">
+                <li style="margin: auto;width: 100px;padding: 10px 25px;font-size: 12px;background: #e4393c;color: white">详情</li>
+            </ul>
+            <span class="info" th:utext="${goodsInfo.goodsDetail}"></span><br/>
         </div>
         <div class="publish_comment">
             <span>留言：</span><br/><br/>
-            <input type="hidden" th:value="${null}" class="token"/>
-            <textarea class="comment_textarea" maxlength="122" placeholder="本次最多填写122个字" name="comment"></textarea>
-            <button class="send_comment_button">发表</button>
+            <form action="saying" method="post" onsubmit="return save(this)">
+                <input id="userId" type="hidden" name="uid"/>
+                <input name="gid" type="hidden" th:value="${goodsInfo.goodsId}">
+                <textarea class="comment_textarea" required maxlength="122" placeholder="本次最多填写122个字" name="content"></textarea>
+                <button class="send_comment_button">发表</button>
+            </form>
         </div>
-        <div class="comment_content">
-            <div class="one_comment" th:each="o:${null}">
-                <span class="username" th:text="'用户：'+${null}">用户：1211110</span>
-                <span class="time" th:with="time = ${null}"
-                      th:text="'发表于 '+${#dates.format(time,'yyyy-MM-dd HH:mm:ss')}">发表于：2016-03-01 22:22:22</span>
-                <p class="content" th:text="${null}">123456789123</p>
+        <div class="comment_content" style="margin: 20px 20px auto 20px">
+            <h3 class="redFont">全部评论</h3>
+            <div class="redColorLine"></div>
+            <div id="one_comment">
+                <div th:each="m:${say}" class="every-comment">
+                    <div class="icon iconImg" th:if='${m.img} != null'>
+                        <img th:src="${m.img}" />
+                    </div>
+                    <div class="icon iconImg" th:if='${m.img} == null' th:text="${m.name}">
+                    </div>
+                    <div>
+                        <div class="contentInfo">
+                            <span style="color: #111; font-size: 12px; display: inline-block;" th:text="${m.name}">
+                            </span>
+                            <span class="playColor">普通会员</span> <span
+                                style="color: #888; font-size: 12px;" th:text="${m.t}">
+                            </span>
+                            <br>
+                            <span style="font-size: 14px; display: inline-block; margin-top: 8px;" th:text="${m.content}">
+                            </span><br>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="m-style"></div>
+                    <div class="clear"></div>
+                    <div class="m-style"></div>
             </div>
+
+            <!--<div class="one_comment" th:each="o:${say}">-->
+                <!--<span class="username" th:text="'用户：'+${o.name}">用户：1211110</span>-->
+                <!--<span class="time" th:text="'发表于 '+${o.t}">发表于：2016-03-01 22:22:22</span>-->
+                <!--<p class="content" th:text="${o.content}">123456789123</p>-->
+            <!--</div>-->
         </div>
     </div>
     <footer>
@@ -56,4 +225,46 @@
     </footer>
 </div>
 </body>
+<script>
+    $(function(){
+        if($(".head-userId").text() == "" || $(".head-userId").text() == null){
+            location.href = '/page/mall_page.html';
+        }else{
+            //表单添加用户id
+            var uid = $(".head-userId").text();
+            $("#userId").val(uid);
+            //判断是否收藏
+            $.post("/loveStatus",{userId:uid,goodsId:$(".willLoveGoodsId").val()},function(love){
+                console.log("love:"+love);
+                if(love == "1"){
+                    $(".love").val("已收藏")
+                    $(".Ilove").val("true");
+                }else{
+                    $(".love").val("收藏")
+                    $(".Ilove").val("false");
+                }
+            })
+        }
+    })
+    function save(){
+        if($(".isLoginCode").val() == "1"){
+            console.log($(".isLoginCode").val())
+            if(!confirm("确认提交？"))
+                return false;
+            //赋值用户id到表单用于form提交数据
+            var userId = $("#userId").val($(".head-userId").text())
+            if(userId == 0)
+            //不存在的用户id，或取值失败，
+                return false;
+            $(".container").css("display","block");
+        }else{
+            //未登录
+            if(confirm("请先登录？") == true){
+                location.href = '/page/mall_page.html';
+            }else{
+                return false;
+            }
+        }
+    }
+</script>
 </html>

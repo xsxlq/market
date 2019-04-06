@@ -24,7 +24,7 @@ spring:
     encoding: UTF-8
     cache: false
   datasource:
-    name: quaint
+    name: xsxlq
     url: jdbc:mysql://127.0.0.1:3306/market
     username: root
     password: root
@@ -32,11 +32,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   #配置javaMail
   mail:
-    host: smtp.qq.com
+    host: smtp.qq.com  #个人
+    #host: smtp.exmail.qq.com  #企业
     #端口号465或587
-    port: 587
-    username: your_qq_num@qq.com
-    password: your_licenseKey_or_password
+#    port: 465
+    username: 614171641@qq.com
+    password: pqctnioqcjlbbbea
     protocol: smtp
     default-encoding: UTF-8
 #配置mybatis
@@ -56,3 +57,18 @@ fileUpload:
   #访问的地址
   rootHttpPath:
 
+#日志
+logging:
+#  file:   # 日志文件,绝对路径或相对路径
+#  path:   # 保存日志文件目录路径
+#  config: # 日志配置文件,Spring Boot默认使用classpath路径下的日志配置文件,如:logback.xml
+  path:
+  level:
+    com.xsxlq: info
+  file: F:/market/spring-boot-market.log
+
+
+#  path: concretepage/logs
+#  pattern:
+#    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+#    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'

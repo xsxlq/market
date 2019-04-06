@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>我的收藏</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="icon" href="../../../static/img/page_icon.png"/>
+    <link rel="stylesheet" href="../../../static/css/home_page/header_and_nav.css"/>
+    <!--<link rel="stylesheet" href="../../../static/css/shopping_cart/shopping_cart.css"/>-->
+    <link href="../../../static/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet"/>
+    <script src="../../../static/js/jquery-1.3.2.min.js"></script>
+    <script src="../../../static/js/home/header_model_js.js"></script>
+    <link rel="stylesheet" href="../../../../static/css/comm/media.css">
+    <style>
+        .featured_products_all{
+            width: 91%;
+            margin: auto;
+        }
+        .product {
+            transition: all 0.65s;
+            position: relative;
+            float: left;
+            margin-left: 16px;
+            margin-right: 16px;
+            display: block;
+            /*text-align: center;*/
+            line-height: 25px;
+            width: 220px;
+            height: 333px;
+            border-radius: 6px;
+            padding: 12px 9px;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+        }
+        .product .product_img_div {
+            display: block;
+            vertical-align:middle;
+            width: 100%;
+            height: 186px;
+            margin: auto auto 10px auto;
+            text-align: center;
+        }
+        .publish_product_div {
+            margin-top: 1%;
+        }
+        .product_name {
+            /*color: rgba(0,0,0,0.62);*/
+            font-size: 14px;
+            display: inline-block;
+            max-height: 44px;
+            overflow-x: hidden;
+        }
+        .product .product_cost {
+            color: red;
+            font-size: 1.2em;
+            display: inline-block;
+            overflow-x: hidden;
+        }
+        .product:hover .show_tip {
+            opacity: 1;
+        }
+        .show_tip {
+            background: white;
+            opacity: 0;
+            transition: opacity 0.65s, transform 0.65s;
+            width: 200px;
+            text-align: center;
+            top: 30px;
+            left: 18px;
+            margin: 20px auto;
+            font-size: 12px;
+            cursor: auto;
+            position: absolute;
+        }
+        .product_area{
+            font-size: 12px;
+            color: #666;
+        }
+        .show_img {
+            max-height: 180px;
+            max-width: 100%;
+            transition: opacity 0.65s, transform 0.65s;
+            opacity: 1;
+            cursor: auto;
+        }
+        @media only screen and (max-width: 767px) {
+            .top_content {
+                width: 100%;
+                text-align: center;
+            }
+            .publish_product_div {
+                margin-top: 1%;
+                width: 98%;
+                margin-left: 1%;
+            }
+            .featured_products_all {
+                width: 83%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header th:include="/market/header :: copy"></header>
+<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<div class="top_content">
+    <div class="publish_product_div">
+        <div class="featured_products_all" style="overflow: hidden;">
+        </div>
+    </div>
+
+    <div style="clear: both;height: 75px;"></div>
+    <footer>
+        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+    </footer>
+</div>
+</body>
+<script>
+    $(function(){
+        if($(".head-userId").text() == "" || $(".head-userId").text() == null){
+            location.href = '/page/mall_page.html';
+        }else{
+            var uid = $(".head-userId").text();
+            $.post("/shopLoveList",{userId:uid},function(shopData){
+                console.log(shopData);
+                for(var i = 0;i<shopData.length;i++){
+                    var str = `<figure class="product" onclick="goodsInfo(${shopData[i].goodsId})">
+                            <input type="hidden" class="willLoveGoodsId" value="${shopData[i].goodsId}">
+                            <div class="product_img_div">
+                                <img src=${shopData[i].goodsImg} class="show_img"/>
+                            </div>
+                            <p class="show_tip">${shopData[i].goodsDesc}</p>
+                            <input class="product_id" type="hidden"/>
+                            <span class="product_cost">¥${shopData[i].goodsPrice}.00</span><br/>
+                            <a class="product_name">【${shopData[i].shopQuality.name}】${shopData[i].goodsName}</a><br/>
+                            <span class="product_area">河南科技学院</span><br/>
+                            <span class="product_area">有【${shopData[i].allLoveNum}】人收藏</span>
+                        </figure>`;
+                    $(".featured_products_all").append(str);
+                }
+            })
+        }
+
+    })
+    function goodsInfo(goodsId){
+        if($(".isLoginCode").val() == "1"){
+            //已经登录，
+            window.location = '/goodsInfo?goodsId='+goodsId;
+        }else{
+            //未登录
+            if(confirm("请先登录？") == true){
+                location.href = '/page/mall_page.html';
+            }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>操作成功</title>
+    <link rel="icon" href="../../static/img/page_icon.png"/>
+    <link href="../../static/css/home_page/home_page_circle.css" rel="stylesheet"/>
+    <link href="../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
+    <link href="../../static/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet"/>
+    <script src="../../static/js/comm/jquery_3.3.1.js"></script>
+    <script src="../../static/js/home/home_page_circle.js"></script>
+    <script src="../../static/js/home/header_model_js.js"></script>
+    <style>
+        .show_message{
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #efefef;
+            margin: auto;
+            margin-top: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header th:include="/market/header::copy"></header>
+<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<div style="clear: both"></div>
+
+<div class="show_message">
+    <h3 th:text="${result}" >
+        test
+    </h3>
+</div>
+
+<div class="featured_products" style="overflow: hidden;">
+    <div style="clear: both;height: 75px;"></div>
+    <footer>
+        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+    </footer>
+</div>
+</body>
+</html>

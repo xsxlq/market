@@ -297,8 +297,8 @@ button:hover {
     color: #e60200;
 }
 .placeholder::-moz-placeholder{
-color: #e60200;
+    color: #e60200;
 }
 .placeholder:-ms-input-placeholder{
-color: #e60200;
+    color: #e60200;
 }

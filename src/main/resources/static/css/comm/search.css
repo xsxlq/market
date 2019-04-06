@@ -1,0 +1,4 @@
+/*隐藏搜索框*/
+header .nav_search_input ,header .search_icon{
+    visibility: visible;
+}

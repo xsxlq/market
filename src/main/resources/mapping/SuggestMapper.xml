@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.SuggestMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.Suggest" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, content, name, contact ,img
+  </sql>
+
+  <select id="selectALLSelective" resultMap="BaseResultMap" parameterType="com.xsxlq.market.pojo.Suggest" >
+    select
+    <include refid="Base_Column_List" />
+    from suggest
+    <where>
+      <if test="id !=null and id!=''">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="content !=null and content!=''">
+        and content LIKE concat(concat('%',#{content}),'%')
+      </if>
+      <if test="uid !=null and uid!=''">
+        and uid = #{uid,jdbcType=INTEGER}
+      </if>
+      <if test="name !=null and name!=''">
+        and name LIKE concat(concat('%',#{name}),'%')
+      </if>
+      <if test="contact !=null and contact!=''">
+        and contact LIKE concat(concat('%',#{contact}),'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from suggest
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from suggest
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.Suggest" >
+    insert into suggest (id, uid, content, 
+      name, contact ,img)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.Suggest" >
+    insert into suggest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsxlq.market.pojo.Suggest" >
+    update suggest
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsxlq.market.pojo.Suggest" >
+    update suggest
+    set uid = #{uid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR}
+      img = #{img,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

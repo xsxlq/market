@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.ShopUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.ShopUserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="idCard" property="idCard" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="xy" property="xy" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="userClass" property="userClass" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, realName, birthday, idCard, gender, code, xy, profession, userClass, icon, status, 
+    school
+  </sql>
+
+  <select id="selectALLSelective" resultMap="BaseResultMap" parameterType="com.xsxlq.market.pojo.ShopUserInfo">
+    select
+    <include refid="Base_Column_List" />
+    from shop_user_info
+    <where>
+      <if test="id !=null and id!=''">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="realName !=null and realName!=''">
+        and realName LIKE concat(concat('%',#{realName}),'%')
+      </if>
+      <if test="code !=null and code !=''">
+        and code = #{code,jdbcType=INTEGER}
+      </if>
+      <if test="xy !=null and xy !=''">
+        and xy = #{xy,jdbcType=VARCHAR}
+      </if>
+      <if test="profession !=null and profession !=''">
+        and profession = #{profession,jdbcType=VARCHAR}
+      </if>
+      <if test="userClass !=null and userClass !=''">
+        and userClass = #{userClass,jdbcType=VARCHAR}
+      </if>
+      <if test="school !=null and school !=''">
+        and school = #{school,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.ShopUserInfo" >
+    insert into shop_user_info (id, realName, birthday, 
+      idCard, gender, code, 
+      xy, profession, userClass, 
+      icon, status, school
+      )
+    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+      #{idCard,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+      #{xy,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{userClass,jdbcType=VARCHAR},
+      #{icon,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.ShopUserInfo" >
+    insert into shop_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="realName != null" >
+        realName,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="idCard != null" >
+        idCard,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="xy != null" >
+        xy,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="userClass != null" >
+        userClass,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="idCard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="xy != null" >
+        #{xy,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="userClass != null" >
+        #{userClass,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsxlq.market.pojo.ShopUserInfo" >
+    update shop_user_info
+    <set >
+      <if test="realName != null" >
+        realName = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="idCard != null" >
+        idCard = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="xy != null" >
+        xy = #{xy,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="userClass != null" >
+        userClass = #{userClass,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsxlq.market.pojo.ShopUserInfo" >
+    update shop_user_info
+    set realName = #{realName,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      idCard = #{idCard,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      xy = #{xy,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      userClass = #{userClass,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

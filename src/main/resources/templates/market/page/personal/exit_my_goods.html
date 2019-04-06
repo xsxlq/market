@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>编辑商品</title>
+    <link href="../../../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
+    <link rel="icon" href="../../../../static/img/page_icon.png"/>
+    <link href="../../../../static/css/product/publish_product.css" rel="stylesheet"/>
+    <script src="../../../../static/js/jquery-1.3.2.min.js"></script>
+    <script src="../../../../static/js/home/header_model_js.js"></script>
+    <script src="../../../../static/js/mall/type_list_obj.js"></script>
+    <script src="../../../../static/js/publish/publish_product.js"></script>
+    <script src="../../../../static/js/check/check.js"></script>
+</head>
+<body>
+<header th:include="/market/header :: copy"></header>
+<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<div class="top_content">
+    <shiro:user>
+        <div class="userId" style="display: none" type="hidden"><shiro:principal property="id"/></div>
+        <div class="publish_product_div">
+            <form action="/updateGoodsbyUser" method="post" enctype="multipart/form-data" onsubmit="return save(this)">
+                <p class="help-block" style="color: red" th:text="${updateResult}"></p>
+                <!--<hr/>-->
+                <!--<p class="help-block" style="color: red" th:text="${qualityList}"></p>-->
+                <!--<hr/>-->
+                <!--<p class="help-block" style="color: red" th:text="${typeList}"></p>-->
+                <input id="userId" type="hidden" value="0" name="userId"/>
+                <input id="goodsId" type="hidden" value="0" name="goodsId" th:value="${result.goodsId}"/>
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>商品名</h3>
+                    </div>
+                    <div class="publish_content">
+                        <input type="text" class="title_input" name="goodsName" required="required" th:value="${result.goodsName}"/>
+                    </div>
+                </div>
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>成色</h3>
+                    </div>
+                    <div class="publish_content">
+                        <select class="choose_chengse_test" name="goodsQuality">
+                            <option th:each="quality : ${qualityList}"
+                                    th:value="${quality.id}" th:text="${quality.name}"
+                                    th:selected="${result.shopQuality.id == quality.id}"
+                            ></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>单价</h3>
+                    </div>
+                    <div class="publish_content cost_content">
+                        <input type="text" class="cost_input" name="goodsPrice" required="required" th:value="${result.goodsPrice}"/>
+                        <span>  RMB(.00)</span>
+                    </div>
+                </div>
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>简述</h3>
+                    </div>
+                    <div class="publish_content">
+                        <input type="text" class="count_input" name="goodsDesc" required="required" th:value="${result.goodsDesc}"/>
+                    </div>
+                </div>
+
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>分类</h3>
+                    </div>
+                    <div class="publish_content">
+                        <!--<select class="choose_first_type">-->
+                            <!--<option id="type_1" selected="selected">数码科技</option>-->
+                            <!--<option id="type_2">影音家电</option>-->
+                            <!--<option id="type_3">鞋服配饰</option>-->
+                            <!--<option id="type_4">运动代步</option>-->
+                            <!--<option id="type_5">书籍文具</option>-->
+                            <!--<option id="type_6">其他</option>-->
+                        <!--</select><span class="to_left">&#45;&#45;</span>-->
+                        <!--<select class="choose_second_type">-->
+                            <!--<option>三成</option>-->
+                            <!--<option>四成</option>-->
+                            <!--<option>五成</option>-->
+                            <!--<option>六成</option>-->
+                            <!--<option>七成</option>-->
+                            <!--<option>八成</option>-->
+                            <!--<option>九成</option>-->
+                            <!--<option>全新</option>-->
+                        <!--</select><span class="to_left">&#45;&#45;</span>-->
+                        <select class="choose_third_typ" name="goodsTypeId">
+                            <option th:each="type : ${typeList}"
+                                    th:value="${type.goodstypeid}" th:text="${type.goodstypename}"
+                                    th:selected="${result.ShopGoodsType.goodstypeid == type.goodstypeid}"
+                            ></option>
+                        </select>
+                        <br/>
+                        <!--<span th:text="${sort}" th:value="${sort}"></span>-->
+                    </div>
+                </div>
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>详细</h3>
+                    </div>
+                    <div class="publish_content">
+                        <!--百度富文本-->
+                        <script id="container" name="goodsDetail" type="text/plain" th:utext="${result.goodsDetail}">自定义商品展示(右上全屏编辑可以更好展示)...
+                    </script>
+                    </div>
+                </div>
+
+                <div class="publish_one_par">
+                    <div class="publish_title">
+                        <h3>封面</h3>
+                    </div>
+                    <div class="img_content">
+                        <input class="upload_img_input" type="file" name="file" accept="image/*" onchange="verificationPicFile(this)"/>
+                    </div>
+                    <img class="show_choose_img" id="show_choose_img" th:src="${result.goodsImg}" style="display: inline-block;opacity: 1"/>
+                </div>
+                <div class="submit_content_div">
+                    <input type="submit" value="提交" class="submit_input"/>
+                </div>
+            </form>
+        </div>
+    </shiro:user>
+    <footer>
+        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+    </footer>
+</div>
+
+<!-- 加载编辑器的容器 -->
+
+<!-- 配置文件 -->
+<script type="text/javascript" src="../../../static/UEditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="../../../static/UEditor/ueditor.all.js"></script>
+
+</body>
+
+<script>
+    <!--富文本-->
+    <!-- 实例化编辑器 -->
+    var ue = UE.getEditor('container');
+    // var ue = UE.getContent();
+    //对编辑器的操作最好在编辑器ready之后再做
+    var getUEHtml = function() {
+        //获取html内容，返回: <p>hello</p>
+        return ue.getContent();
+    };
+    <!--数据提交前处理-->
+    function save(){
+        console.log($("#container").text().indexOf("10000"))
+        if($("#container").text().indexOf("10000") != -1){
+            alert("请填写完整后提交！");
+            return false;
+        }
+        var quilty = $(".choose_chengse").val();
+        var goodsType = $(".choose_third_type").val();
+        if(!confirm(getUEHtml()+"确认提交？"))
+            return false;
+        //赋值用户id到表单用于form提交数据
+        var userId = $("#userId").val($(".userId").text())
+        if(userId == 0)
+        //不存在的用户id，或取值失败，
+            return false;
+    }
+    function verificationPicFile(file) {
+        var check = checkImg(file);
+        if(check != "ok"){
+            alert(check.error);
+            $(".show_choose_img").attr("src","");
+            return false;
+        }
+    }
+    $(function(){
+    })
+</script>
+</html>

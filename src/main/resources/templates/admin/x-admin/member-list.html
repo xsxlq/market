@@ -1,0 +1,184 @@
+<html class="x-admin-sm">
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="../../../static/admin/css/font.css">
+    <link rel="stylesheet" href="../../../static/admin/css/xadmin.css">
+    <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="../../../static/js/comm/jquery_3.3.1.js"></script>
+    <script type="text/javascript" src="../../../static/admin/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../../static/admin/js/xadmin.js"></script>
+    <script type="text/javascript" src="../../../static/admin/js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="demoTable">
+        <div class="layui-inline">
+          <input class="layui-input layui-inline" name="uid" id="uid" autocomplete="off" placeholder="ID">
+        </div>
+        <div class="layui-inline">
+          <input class="layui-input layui-inline" name="realName" id="realName" autocomplete="off" placeholder="姓名">
+        </div>
+        <div class="layui-inline"><input class="layui-input" name="school" id="school" autocomplete="off" placeholder="学校"></div>
+        <div class="layui-inline"><input class="layui-input" name="xy" id="xy" autocomplete="off" placeholder="学院"></div>
+        <div class="layui-inline"><input class="layui-input" name="userClass" id="userClass" autocomplete="off" placeholder="班级"></div>
+        <div class="layui-inline"><input class="layui-input" name="code" id="code" autocomplete="off" placeholder="学号"></div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+      </div>
+      <table id="demo" lay-filter="demo"></table>
+      <script type="text/html" id="barDemo">
+        <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>-->
+        <!--<a class="layui-btn layui-btn-xs" lay-event="zhengchang">正常</a>-->
+        <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dongjie">冻结</a>-->
+      </script>
+    </div>
+    <script>
+      layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+          elem: '#demo'
+          ,height: 312
+          ,url: './userinfo.json' //数据接口
+          ,page: true //开启分页
+          ,id: 'testReload'
+          ,cols: [
+            [
+              {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+              ,{field: 'realName', title: '姓名', width:80}
+              ,{field: 'gender', title: '性别', width: 80, sort: true
+              ,templet: function(d){
+                if(d.gender == 1){
+                  return '男';
+                }else if(d.gender == 0){
+                  return '女';
+                }else{
+                  return '';
+                }
+              }
+            }
+              ,{field: 'school', title: '学校', width:120, sort: true}
+              ,{field: 'xy', title: '学院', width: 100}
+              ,{field: 'userClass', title: '班级', width: 80, sort: true
+            }
+              ,{field: 'code', title: '学号', width:130}
+              ,{field: 'icon', title: '头像', width: 80
+              ,templet: function(d){
+                return '<img style="height: 25px;width: 100%" src="'+d.icon+'">';
+              }
+            }
+              ,{field: 'right', title: '操作', width: 300,toolbar: '#barDemo'}
+            ]
+          ]
+        });
+        // 监听工具条
+        table.on('tool(demo)', function(obj){
+          var data = obj.data;
+          if(obj.event === 'edit'){
+            layer.prompt({
+              title:"修改用户权限"
+              ,formType: 0//文本
+              ,value: data.perms
+            }, function(value, index){
+              $.post("./updateUser",{id:data.id,perms:value,status:data.status},function(returnMap){
+                if(returnMap.resCode == "1"){
+                  obj.update({
+                    perms: value
+                  });
+                  layer.msg('操作成功！');
+                  layer.close(index);
+                }else{
+                  alert(returnMap.resDesc);
+                }
+              })
+
+            });
+          } else if(obj.event === 'dongjie'){
+            if(data.status == -1){
+              layer.msg('该用户已冻结！无需操作');
+            }else{
+              layer.confirm('冻结此用户', function(index){
+                $.post("./updateUser",{id:data.id,perms:data.perms,status:-1},function(returnMap){
+                  if(returnMap.resCode == "1"){
+                    obj.update({
+                      status: -1
+                    });
+                    layer.msg('操作成功！');
+                    layer.close(index);
+                  }else{
+                    alert(returnMap.resDesc);
+                  }
+                })
+
+              });
+            }
+          } else if(obj.event === 'zhengchang'){
+            if(data.status == 1){
+              layer.msg('该用户正常！无需操作');
+            }else {
+              layer.confirm('恢复用户状态？', function (index) {
+                $.post("./updateUser", {id: data.id, perms:data.perms,status: 1}, function (returnMap) {
+                  if (returnMap.resCode == "1") {
+                    obj.update({
+                      status: 1
+                    });
+                    layer.msg('操作成功！');
+                    layer.close(index);
+                  } else {
+                    alert(returnMap.resDesc);
+                  }
+                })
+
+              });
+            }
+          }
+        });
+        var $ = layui.$, active = {
+          reload: function () {
+            var demoReload = $('#demoReload');
+
+            //执行重载
+            table.reload('testReload', {
+              page: {
+                curr: 1 //重新从第 1 页开始
+              }
+              , where: {
+                id: $("#uid").val(),
+                realName:$("#realName").val(),
+                school:$("#school").val(),
+                xy:$("#xy").val(),
+                code:$("#code").val(),
+                userClass:$("#userClass").val()
+              }
+            });
+          }
+        }
+        $('.demoTable .layui-btn').on('click', function(){
+          var type = $(this).data('type');
+          active[type] ? active[type].call(this) : '';
+        });
+
+      });
+
+    </script>
+  </body>
+
+</html>

@@ -1,14 +1,25 @@
 package com.xsxlq.market.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xsxlq.market.pojo.ShopGoods;
 
 import java.util.List;
 
 public interface ShopGoodsService {
     /**
+     * 分页查询
+     */
+    public PageInfo<ShopGoods> getPageGoodsList(Integer userId,int pageNum, int pageSize,ShopGoods shopGoods);
+    /**
      * 查询所有商品
      */
-    List<ShopGoods> selectAllGoods();
+    List<ShopGoods> selectAllGoods(Integer userId);
+
+    /**
+     * 模糊查询
+     * @return
+     */
+    List<ShopGoods> selectiveGoods(Integer userId,ShopGoods shopGoods);
     /**
      * 通过商品id删除
     * @param goodsid
@@ -16,6 +27,12 @@ public interface ShopGoodsService {
      */
     int deleteByPrimaryKey(Integer goodsid);
 
+    /**
+     * 添加返回主键
+     * @param record
+     * @return
+     */
+    int insertSelectiveReturnPK(ShopGoods record);
     /**
      * 添加商品
      * @param record

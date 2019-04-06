@@ -1,61 +1,44 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <title>错误！！！！</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8"/>
+    <title>C2C二手交易平台</title>
+    <link rel="icon" href="../../static/img/page_icon.png"/>
+    <link href="../../static/css/home_page/home_page_circle.css" rel="stylesheet"/>
+    <link href="../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
+    <link href="../../static/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet"/>
+    <script src="../../static/js/comm/jquery_3.3.1.js"></script>
+    <script src="../../static/js/home/home_page_circle.js"></script>
+    <script src="../../static/js/home/header_model_js.js"></script>
     <style>
-
-        * {
-            line-height: 1.2;
-            margin: 0;
-        }
-
-        html {
-            color: #000;
-            display: table;
-            font-family: sans-serif;
-            height: 100%;
+        .show_message{
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #efefef;
+            margin: auto;
+            margin-top: 150px;
+            color: red;
             text-align: center;
-            width: 100%;
-			background:#cccccc
         }
-
-        body {
-            display: table-cell;
-            vertical-align: middle;
-            margin: 2em auto;
-			
-        }
-
-        h1 {
-            color: #ff0000;
-            font-size: 2em;
-            font-weight: 400;
-        }
-
-        p {
-            margin: 0 auto;
-            width: 280px;
-        }
-
-        @media only screen and (max-width: 280px) {
-
-            body, p {
-                width: 95%;
-            }
-
-            h1 {
-                font-size: 1.5em;
-                margin: 0 0 0.3em;
-            }
-
-        }
-
     </style>
 </head>
 <body>
-    <h1>错误！！！！</h1>
-    <p>对不起，您进行了错误的操作或者进行了非法的操作！！请进行正确合法的操作。谢谢合作！</p>
+<header th:include="/market/header::copy"></header>
+<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<div style="clear: both"></div>
+
+<div class="show_message">
+    <h3 th:text="${result}" >
+        test
+    </h3>
+</div>
+
+<div class="featured_products" style="overflow: hidden;">
+    <div style="clear: both;height: 75px;"></div>
+    <footer>
+        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+    </footer>
+</div>
 </body>
 </html>

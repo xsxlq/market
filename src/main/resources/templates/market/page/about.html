@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>联系我们</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../../static/img/page_icon.png"/>
+    <link href="../../../static/css/home_page/home_page_circle.css" rel="stylesheet"/>
+    <link href="../../../static/css/home_page/header_and_nav.css" rel="stylesheet"/>
+    <link href="../../../static/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet"/>
+    <script src="../../../static/js/comm/jquery_3.3.1.js"></script>
+    <script src="../../../static/js/home/home_page_circle.js"></script>
+    <script src="../../../static/js/home/header_model_js.js"></script>
+    <link rel="stylesheet" href="../../../static/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../static/css/comm/media.css">
+
+    <style>
+        .show_message{
+            width: 80%;
+            padding: 5px;
+            /*border: 1px solid #efefef;*/
+            margin: auto;
+            margin-top: 20px;
+        }
+        .icon-weizhi{
+            font-size: 16px;
+            color: red;
+            font-weight: 700;
+        }
+        .shang{
+
+            display: inline-block;
+            text-align: center;
+            line-height: 50px;
+            width: 50px;
+            height:50px;
+            color: #eb7350;
+            border-radius: 60px;
+            border: 1px solid #efefef;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.45s;
+        }
+        .shang:hover{
+            background: #eb7350;
+            color: white;
+        }
+        .qr_code{
+            display: none;
+            width: 100%;
+            height: 200%;
+            background:rgba(0,0,0,0.5);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 999;
+        }
+        .qr_code .center{
+            width: 300px;
+            height: 300px;
+            background: white;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            border-radius: 8px;
+            overflow: hidden;
+
+        }
+        .qr_code div img{
+            width: 200px;
+        }
+        .qr_code div h5{
+            display: inline-block;
+            padding: 0;
+            margin: 19px auto 20px 15px;
+        }
+        .qr_code div .close{
+            position: relative;
+            top: -5px;
+            left: 274px;
+            display: inline-block;
+            font-size: 24px;
+            color: #777;
+            transform: rotate(45deg);
+            cursor: default;
+        }
+
+    </style>
+</head>
+<body>
+<header th:include="/market/header::copy"></header>
+<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<div style="clear: both"></div>
+<div class="show_message">
+    <div class="my_info" style="border: 1px solid #efefef;font-size: 14px">
+        <div style="padding: 15px 36px;">
+            <span style="font-size: 12px;color: #c82333">素材摘自网络，仅用于学习交流，如有侵权 请联系我们删除。</span>
+        </div>
+        <div style="padding: 10px 36px;">
+            <span>邮箱：</span> 614171641@qq.com</div>
+        <div style="padding: 10px 36px;">
+            <span>电话：</span>18238687860
+        </div>
+        <div style="padding: 10px 36px;">
+            <span class="shang">赏</span>
+        </div>
+    </div>
+
+
+    <div class="my_info" style="border: 1px solid #efefef;margin-top: 20px">
+        <div style="padding: 10px 15px;border-bottom: 1px solid #efefef"><span class="iconfont icon-weizhi"></span> 联系地址</div>
+        <div style="padding: 10px 36px;font-size: 12px">
+            <span>地址：新乡市红旗区华兰大道东段</span>
+        </div>
+        <div class="ip_div" style="text-align: center;margin-top: 20px">
+            <img src="../../../static/img/school.png">
+        </div>
+    </div>
+</div>
+<div class="qr_code">
+    <div class="center">
+        <span class="close">+</span>
+        <h5>感谢您的打赏</h5>
+        <div style="display: inline-block;height: 18px;margin: auto;text-align: center"><input type="radio" checked>支付宝</div>
+        <div style="text-align: center"><img src="../../../static/img/pay.png"></div>
+
+    </div>
+</div>
+</body>
+<script>
+    $(function(){
+        $(".shang").click(function(){
+            $(".qr_code").css("display","block");
+        })
+        $(".close").click(function(){
+            $(".qr_code").css("display","none");
+        })
+    })
+</script>
+</html>

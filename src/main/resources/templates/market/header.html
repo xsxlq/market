@@ -1,21 +1,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <body>
 <header class="copy" th:fragment="copy">
-    <span class="short_nav"></span>
     <div class="home_icon">
         <a href="/" style="text-decoration: none;color: white">C2C</a>
     </div>
-    <input type="text" placeholder="Search" name="search" class="nav_search_input"/>
-    <span class="search_icon"></span>
-    <span class="user_icon"></span>
-    <span class="login_or_register_string">
+    <div class="search_div">
+        <input type="text" placeholder="Search" name="search" class="nav_search_input"/>
+        <input type="hidden" class="nav_search_input_copy"/>
+        <span class="search_icon"></span>
+    </div>
+
+    <div class="login_or_register_string"><span class="user_icon"></span>
+
         <!--判断是否有登陆，两者相互替换-->
-        <!--<a href="/login" th:if="${null}==null" id="user_name_a" th:value="wsk">登录</a>-->
-        <!--<a href="/login"  th:if="${null}==null">注册</a>-->
-        <!--<a href="/personal_info" class="user_name_a"-->
-           <!--th:if="${null!=null}" th:text="${null}" th:value="${null}" id="user_name_a"></a>-->
-    </span>
+        <shiro:guest>
+            <a href="/page/login_page.html">登录/注册</a>
+            <input type="hidden" value="0" class="isLoginCode">
+　　     </shiro:guest>
+        <shiro:user>
+            <div th:include="/market/personal_nav :: personal_nav" class="personal_nav"></div>
+            <input type="hidden" value="1" class="isLoginCode">
+            <a href="#" class="user_name_a"></a>
+            <span class="head-userId" style="display: none"><shiro:principal property="id"/></span>
+            <script>
+                $(function(){
+                    if($(".head-userId").text() <= 0){
+                        alert("用户信息获取失败！");
+                    }else{
+                        $.post("/selectUserIconById",{id:$(".head-userId").text()},function (user) {
+                            console.log(user);
+                            if(user.icon == null){
+                                user.icon = "/static/img/home/user_icon.png";
+                            }
+                            $(".user_icon").css("background-image","url("+user.icon+")");
+                            $(".user_name_a").text(user.shopUser.name);
+                        })
+                    }
+                })
+            </script>
+　　     </shiro:user>
+
+    </div>
 </header>
 </body>
 </html>

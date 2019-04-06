@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.LoveMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.Love" >
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="goodsId" property="goodsId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="Base2ResultMap" type="com.xsxlq.market.pojo.Love" >
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="goodsId" property="goodsId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.Love" >
+    insert into love (userId, goodsId)
+    values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER})
+  </insert>
+  <!--查询前n条商品（根据收藏量排序）-->
+  <select id="selectGoodsListByLoves" resultMap="Base2ResultMap">
+    select goodsId,count(1) num from love group by goodsId order by num desc limit 6
+  </select>
+
+  <!--根据商品id查询记录数-->
+  <select id="selectCountByGoodsId" resultType="java.lang.Integer"  parameterType="java.lang.Integer" >
+    select
+    count(1)
+    from love
+    where goodsId = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserIdAndGoodsId" resultMap="BaseResultMap"  parameterType="com.xsxlq.market.pojo.Love" >
+    select
+    userId,goodsId
+    from love
+    where userId = #{userId,jdbcType=INTEGER}
+    and goodsId = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    userId,goodsId
+    from love
+    where userId = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    userId,goodsId
+    from love
+    where goodsId = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+
+  <delete id="delete" parameterType="com.xsxlq.market.pojo.Love" >
+    delete from love
+    where userId = #{userId,jdbcType=INTEGER} and goodsId = #{goodsId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.Love" >
+    insert into love
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="goodsId != null" >
+        goodsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

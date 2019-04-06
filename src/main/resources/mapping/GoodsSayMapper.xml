@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xsxlq.market.dao.GoodsSayMapper" >
+  <resultMap id="BaseResultMap" type="com.xsxlq.market.pojo.GoodsSay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="t" property="t" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gid, content, t, uid
+  </sql>
+
+  <select id="selectALLSelective" resultMap="BaseResultMap" parameterType="com.xsxlq.market.pojo.GoodsSay" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_say
+    <where>
+      <if test="id !=null and id!=''">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="content !=null and content!=''">
+        and content LIKE concat(concat('%',#{content}),'%')
+      </if>
+      <if test="gid !=null and gid!=''">
+        and gid = #{gid,jdbcType=INTEGER}
+      </if>
+      <if test="uid !=null and uid!=''">
+        and uid = #{uid,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_say
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from goods_say
+    where gid = #{id,jdbcType=INTEGER}
+    order by id desc
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_say
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xsxlq.market.pojo.GoodsSay" >
+    insert into goods_say (id, gid, content, 
+      t, uid)
+    values (#{id,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{t,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsxlq.market.pojo.GoodsSay" >
+    insert into goods_say
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="t != null" >
+        t,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="t != null" >
+        #{t,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsxlq.market.pojo.GoodsSay" >
+    update goods_say
+    <set >
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="t != null" >
+        t = #{t,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsxlq.market.pojo.GoodsSay" >
+    update goods_say
+    set gid = #{gid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      t = #{t,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

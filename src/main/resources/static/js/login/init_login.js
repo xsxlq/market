@@ -30,6 +30,7 @@ $(function () {
 
     // 跳转到注册输入密码
     $('.go_enter_password_button').bind('click', function () {
+        console.log("点击")
         from_which = 1;
         var name = $('.input_nickname').val();
         var phone = $('.register_input_phone').val();
@@ -39,21 +40,31 @@ $(function () {
             alert('请填写信息');
             return;
         }
+        console.log("准备ajax")
         $.ajax({
-            url: 'checkCode',
+            url: '/checkCode',
             dataType: 'JSON',
             type: 'post',
-            data: {name: name, phone: phone, code: code,token:token},
+            data: {name: name, phone: phone, code: code},
             success: function (data) {
-                var result = data.result;
-                if (result === 0) {
+                console.log("ajax ok")
+                var result = data.code;
+                console.log(result)
+                if (result == "0") {
                     alert('验证码错误');
-                } else if (result === 1) {
+                } else if (result == "1") {
                     // 成功后执行以下代码进行跳转
+                    console.log("验证通过")
+                    $("#userInfoPhone").val(data.phone);
+                    $("#userInfoName").val(data.name);
                     $('.forget_password').show(1000);
                     css3Transform(document.getElementsByClassName('content')[0], "rotateY(-180deg)");
                     $('.login').hide(1000);
                     $('.confirm_register_button').html('注册');
+                }else if (result == '2'){
+                    alert("该号码已被注册，如有疑问请联系管理员！")
+                }else{
+                    alert("系统错误，请稍后重试！ ")
                 }
             }
         });
@@ -67,28 +78,33 @@ $(function () {
             alert('请填写信息');
             return;
         }
-
         if (password !== password2) {
             alert('输入两次的密码不一致');
             return;
         }
         if (from_which === 1) {
+            var phone = $("#userInfoPhone").val();
+            var name = $("#userInfoName").val();
+            console.log("phone:"+phone);
+            console.log("name:"+name);
+            console.log("pwd:"+password);
             $.ajax({
-                url: 'insertUser',
+                url: '/insertUser',
                 dataType: 'JSON',
                 type: 'post',
-                data: {password: password, token: token},
+                data: {phone:phone,name:name,pwd: password},
                 success: function (data) {
-                    var result = data.result;
+                    var result = data;
                     if (result === 1) {
+                        console.log("register ：ok")
                         window.location.href = '/';
+
                     } else if (result === 0) {
                         alert('发送了错误，0但是我不说');
                     } else {
                         alert('发送了错误，但是我不说');
                     }
                 }
-
             });
         } else {
             $.ajax({
@@ -123,7 +139,7 @@ $(function () {
             return;
         }
         $.ajax({
-            url: 'checkCode',
+            url: '/checkCode',
             dataType: 'JSON',
             type: 'post',
             data: {phone: phone, code: code,token:token},
@@ -216,7 +232,11 @@ $(function () {
         $('.register_phone_svg').animate({width: '10%'}, 500);
     });
 
+    /**
+     * 登录校验
+     */
     $('.login_button').click(function () {
+        console.log("点击事件");
         var login_name = $('.input_username').val();
         var login_password = $('.input_password').val();
         // var login_token = $('.token').val();
@@ -224,23 +244,28 @@ $(function () {
             alert('请填写信息');
             return;
         }
-        $(this).submit();
-        // $.ajax({
-        //     url: "/login",
-        //     type: "POST",
-        //     dataType: "JSON",
-        //     data: {phone: login_name, password: login_password, token: login_token},
-        //     success: function (date) {
-        //         var result = date.wsk;
-        //         if (result === 3) {
-        //             window.location.href = '/';
-        //         } else if (result === 2) {
-        //             alert('手机或者密码错误!!!!!!');
-        //         } else if (result === 1) {
-        //             window.location.href = '/login';
-        //         }
-        //     }
-        // });
+        // $(this).submit();
+        console.log("准备ajax")
+        $.ajax({
+            url: "/login",
+            type: "POST",
+            dataType: "JSON",
+            data: {phone: login_name, password: login_password},
+            success: function (date) {
+                console.log("ajax返回数据：");
+                console.log(date);
+                if (date.respCode == '1') {
+                    //验证通过
+                    console.log("执行跳转主页")
+                    window.location.href = '/index.html';
+                } else if (date.respCode == '0') {
+                    $(".input_password").val("");
+                    alert(date.respDesc);
+                } else if (result == '-1') {
+
+                }
+            }
+        });
     });
 
 //注册获取验证码

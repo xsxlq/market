@@ -1,82 +1,390 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleleaf.org"  xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>个人信息</title>
-    <link rel="stylesheet" href="../../../../static/css/jquery-ui.css"/>
+    <!--<link rel="stylesheet" href="../../../../static/css/jquery-ui.css"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
     <link rel="icon" href="../../../../static/img/page_icon.png"/>
     <link rel="stylesheet" href="../../../../static/css/home_page/header_and_nav.css"/>
     <link rel="stylesheet" href="../../../../static/css/personal/personal_info.css"/>
-    <script src="../../../../static/js/jquery-1.12.4.js"></script>
-    <script src="../../../../static/js/jquery-ui.js"></script>
+    <script src="../../../../static/js/comm/jquery_3.3.1.js"></script>
+    <!--<script src="../../../../static/js/jquery-ui.js"></script>-->
     <script src="../../../../static/js/home/header_model_js.js"></script>
-    <script src="../../../../static/js/personal_info.js">
-    </script>
+    <script src="../../../../static/js/personal_info.js"></script>
+    <script src="../../../../static/js/check/check.js"></script>
+    <link rel="stylesheet" href="../../../../static/css/comm/media.css">
+    <style>
+        @media only screen and (max-width: 767px){
+            .top_content{
+                width: 100%;
+            }
+            .publish_product_div h3{
+                padding-left: 5px;
+            }
+            .publish_product_div {
+                width: 98%;
+                height: auto;
+                margin-left: 1%;
+                display: inline-block;
+                margin-top: 0;
+            }
+            .first_info{
+                margin-left: 10%;
+            }
+            .first_info span{
+                font-weight: 400;
+                display: inline-block;
+                width: 75px;
+                font-size: 14px;
+            }
+            .update_button{
+                width: 20%;
+                border-radius: 10px;
+            }
+            footer {
+                margin-top: 0%;
+                border-radius: 5px;
+                height: 20px;
+                margin-bottom: 3px;
+            }
+            footer p {
+                padding-top: 2px;
+                font-size: 12px;
+                padding-bottom: 2px;
+            }
+        }
+    </style>
+
 </head>
 <body>
 <header th:include="/market/header :: copy"></header>
 <div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
 <nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
-<div th:include="/market/personal_nav :: personal_nav" class="personal_nav"></div>
-<div style="display: none" th:if="${null}!=null" class="show_tip" th:text="${null}" th:value="${null}">
-</div>
-<input type="hidden" class="token" th:value="${null}"/>
-<div class="top_content">
-    <div class="publish_product_div">
-        <div id="accordion">
-            <h3>用户名：<span class="username_span" th:text="${null}">123456</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>用户名：</span><input type="text" class="userName"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
+
+
+    <div class="top_content">
+        <shiro:user>
+
+            <div class="userId" style="display: none" type="hidden"><shiro:principal property="id"/></div>
+        <div class="publish_product_div">
+            <div id="accordion">
+                <!--<h3>用户名：<span class="username_span"></span></h3>-->
+                <h3>基本状态：<span class=""> &nbsp;</span></h3>
+                <form action="/updateSendEmailStatus" method="post" onsubmit="return check_box()">
+                    <input type="hidden" name="id" class="update_email_status">
+                    <div class="info_content">
+                        <div class="first_info">
+                            <span>注册时间：</span><input type="text" class="form-control regTime"/>
+                        </div>
+                        <!--<button class="update_button">确认修改</button>-->
+                    </div>
+                    <div class="info_content">
+                        <div class="first_info">
+                            <span>最近登录：</span>
+                            <select class="loginTime input">
+                                <option selected style="text-align: center">--Click to view latest 10--</option>
+                            </select>
+                            <!--<input type="text" class="loginTime" readonly/>-->
+                        </div>
+                        <!--<button class="update_button">确认修改</button>-->
+                    </div>
+                    <div class="info_content">
+                        <div class="first_info">
+                            <span>留言提醒：</span>
+                            <input type="checkbox" name="say" id="say"/>
+                            <span style="color: red;font-weight: 100;font-size: 12px;width: 300px">(我希望我的商品有评论时邮件提醒我^_^)</span>
+                        </div>
+                        <!--<button class="update_button">确认修改</button>-->
+                    </div>
+                    <div class="info_content">
+                        <div class="first_info">
+                            <span>收藏提醒：</span>
+                            <input type="checkbox" name="love" id="love"/>
+                            <span style="color: red;font-weight: 100;font-size: 12px;width: 300px">(我希望我的商品被收藏时邮件提醒我^_^)</span>
+                        </div>
+                        <!--<button class="update_button">确认修改</button>-->
+                    </div>
+                    <input type="submit" class="update_button comm_update" value="确认修改">
+                </form>
+                <hr>
+                <h3>基础信息：<span class=""> &nbsp;</span></h3>
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>用户名：</span><input type="text" class="userName" maxlength="10"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
                 </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>真实姓名：<span class="realname_span" th:text="${null}"> &nbsp;</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>真实姓名：</span><input type="text" class="realName"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>Email：</span><input type="email" class="email"/>
+                    </div>
                 </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>性别：<span class="sex_span" th:text="${null}">男</span></h3>
-            <div class="info_content">
-                <div class="first_info sex_info">
-                    <span>性别：</span><input class="gender" type="radio" name="sex_choose" value="1" checked="checked"/>男
-                    <input class="gender" type="radio" name="sex_choose" value="2"/>女
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>Phone：</span><input type="text" class="phone"/>
+                    </div>
+                    <button class="update_comm_button update_button comm_update">确认修改</button>
                 </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>学号：<span class="sno_span" th:text="${null}">&nbsp;</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>学号：</span><input type="text" class="sno"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
+                <hr>
+                <h3>敏感信息：<span class=""> &nbsp;</span></h3>
+                <div class="info_content">
+                    <div class="first_info userIconBorder">
+                        <img src="" class="userIcon">
+                    </div>
                 </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>宿舍号：<span class="dormitory_span" th:text="${null}">&nbsp;</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>宿舍号：</span><input type="text" class="dormitory"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
+
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>头像：</span>
+                        <form action="/uploadIcon" method="POST" enctype="multipart/form-data" onsubmit="return tips()">
+                            <input type="file" id="inputIcon" accept="image/*" name="file" onchange="verificationPicFile(this)">
+                            <input type="hidden" value="-1" name="id" class="uploadId">
+                            <input type="submit" class="uploadIconBtn" value="上传">
+                        </form>
+                        <p class="help-block">选择上传头像( size &lt; 1024 kb )</p>
+                        <p class="help-block" style="color: red" th:text="${uploadIconResult}"></p>
+                    </div>
                 </div>
-                <button class="update_button">确认修改</button>
-            </div>
-            <h3>Email：<span class="email_span">&nbsp;</span></h3>
-            <div class="info_content">
-                <div class="first_info">
-                    <span>Email：</span><input type="text" class="email"/>
-                    <span class="reqiure_enter"> 必须填写此字段</span>
+                <!--<h3>真实姓名：<span class="realname_span"> &nbsp;</span></h3>-->
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>真实姓名：</span><input type="text" class="realName" maxlength="4"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
                 </div>
-                <button class="update_button">确认修改</button>
+                <!--<h3>性别：<span class="sex_span" th:text="${null}">男</span></h3>-->
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>性别：</span><input class="gender boy" type="radio" name="sex_choose" value="1" checked="checked"/>男
+                        <input class="gender girl" type="radio" name="sex_choose" value="0"/>女
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
+                </div>
+
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>学校：</span><input type="text" class="school" maxlength="20"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
+                </div>
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>学院：</span><input type="text" class="xy" maxlength="20"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
+                </div>
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>专业：</span><input type="text" class="profession" maxlength="20"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
+                </div>
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>班级：</span><input type="text" class="userClass" maxlength="20"/>
+                    </div>
+                    <!--<button class="update_button">确认修改</button>-->
+                </div>
+                <!--<h3>学号：<span class="sno_span" th:text="${null}">&nbsp;</span></h3>-->
+                <div class="info_content">
+                    <div class="first_info">
+                        <span>学号：</span><input type="text" class="code" pattern="[0-9]{20}" maxlength="20" />
+
+                    </div>
+                    <button class="update_button imp_update_button">确认修改</button>
+                </div>
             </div>
         </div>
+</shiro:user>
+        <footer>
+            <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+        </footer>
+
     </div>
-    <footer>
-        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
-    </footer>
-</div>
 </body>
+<script type = "text/javascript">
+    $(function(){
+        var id = $(".userId").text();
+        if(id < 0){
+            alert("用户信息获取失败！")
+        }else{
+            initCommUserInfo(id);
+            initPrivateUserInfo(id);
+        }
+    })
+    //获取基础信息
+    function initCommUserInfo(id){
+        //获取基础信息
+        $.post("/selectUserById",{id:id},function(user){
+            console.log(user);
+            console.log("ok");
+            $(".userName").val(user.name);
+            $(".regTime").val(user.strRegTime);
+            // $(".loginTime").val(user.loginLogs[0].strTime);
+            for(var i = 0;i<user.loginLogs.length;i++){
+                var str = `<option>${user.loginLogs[i].strTime}</option>`;
+                $(".loginTime").append(str);
+            }
+            $(".phone").val(user.phone);
+            $(".email").val(user.email);
+            if(user.loveMsg == 1){
+                $("#love").attr("checked","true");
+            }else{
+                $("#love").removeAttr("checked");
+            }
+            if(user.sayMsg == 1){
+                $("#say").attr("checked","true");
+            }else{
+                $("#say").removeAttr("checked");
+            }
+        })
+    }
+    //获取敏感信息
+    function initPrivateUserInfo(id){
+        $.post("/selectUserInfoById",{id:id},function(user){
+            console.log(user);
+            $(".realName").val(user.realName);
+            if(user.gender == 1){
+                $('input:radio:first').attr('checked', 'checked');
+                $('input:radio:last').removeAttr('checked','checked')
+            }else{
+                $('input:radio:last').attr('checked', 'checked');
+                $('input:radio:first').removeAttr('checked', 'checked');
+            }
+            $(".school").val(user.school);
+            $(".xy").val(user.xy);
+            $(".profession").val(user.profession);
+            $(".userClass").val(user.userClass);
+            $(".code").val(user.code);
+            $(".userIcon").attr("src", user.icon);
+        })
+    }
+
+    //修改基础信息
+    $(".update_comm_button").click(function () {
+        var name = $(".userName").val();
+        var email = $(".email").val();
+        var phone = $(".phone").val();
+        if(name != null && name != '' && email != null && email != '' && phone != null && phone != ''){
+            var isUpdate = confirm("确认修改？")
+            if(isUpdate == true){
+                $.post("/updateUserCommInfo",{id:$(".userId").text(),name:name,email:email,phone:phone},function (data) {
+                    if(data == 1){
+                        alert("修改成功！")
+                        var id = $(".userId").text();
+                        if(id < 0){
+                            alert("用户信息获取失败！")
+                        }else{
+                            $(".user_name_a").text(name);
+                            initCommUserInfo(id);
+                        }
+                    }else{
+                        alert("修改失败！")
+                    }
+                })
+            }
+        }else{
+            alert("请填写信息后修改！");
+        }
+
+
+    });
+    //修改敏感信息
+    $(".imp_update_button").click(function () {
+        var realName = $(".realName").val();
+        var gender = $('input[name="sex_choose"]:checked').val();
+        var school = $(".school").val();
+        var xy = $(".xy").val();
+        var profession = $(".profession").val();
+        var userClass = $(".userClass").val();
+        var code = $(".code").val();
+        var id = $(".userId").text();
+        var isUpdate = confirm("确认修改？")
+        if(isUpdate == true){
+            $.post("/updateUserPrivateInfo",{
+                id:id,
+                gender:gender,
+                school:school,
+                xy:xy,
+                profession:profession,
+                code:code,
+                realName:realName,
+                userClass:userClass
+            },function (data) {
+                if(data == 1){
+                    alert("修改成功！")
+                    initPrivateUserInfo(id);
+                }else{
+                    alert("修改失败！");
+                }
+            })
+
+        }
+    });
+    //初判断
+    function verificationPicFile(file) {
+        $(".uploadId").val($(".userId").text());
+        var check = checkImg(file);
+        if(check == null){
+            return true;
+        }else{
+            alert(check.error);
+        }
+        // return true;
+    }
+    /**
+     * 头像上传
+     */
+    // $(".uploadIconBtn").click(function () {
+    //     var fileObj = document.getElementById("inputIcon").files[0];
+    //     console.log(fileObj);
+    //     if(fileObj == null ||fileObj == ""){
+    //         alert("未选择文件！")
+    //     }else{
+    //         var preCheck = checkImg(fileObj);
+    //         if(preCheck == null){
+    //             //准备ajax
+    //             var formData = new FormData();
+    //             formData.append("file",fileObj);
+    //             console.log(formData)
+    //             $.ajax({
+    //                 url:'/uploadIcon',
+    //                 type:'POST',
+    //                 data:formData,
+    //                 async:false,
+    //                 processData:false,
+    //                 contentType: "multipart/form-data",
+    //                 success:function (data) {
+    //                     console.log(data);
+    //                 }
+    //             })
+    //         }else{
+    //             return false;
+    //         }
+    //     }
+    // })
+    function tips() {
+        var fileObj = document.getElementById("inputIcon").files[0];
+        if(fileObj == null ||fileObj == ""){
+            alert("未选择文件！")
+            return false;
+        }else{
+            if($(".uploadId").val() < 0){
+                alert("获取用户失败，请重试！");
+                return false;
+            }
+            return confirm('确定上传？');
+        }
+    }
+    function check_box(){
+        if(confirm("确认修改？") == true){
+            $(".update_email_status").val($(".userId").text());
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 </html>

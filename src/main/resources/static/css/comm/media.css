@@ -1,0 +1,79 @@
+@media only screen and (max-width: 767px){
+    header{
+        height: 50px;
+    }
+    header .home_icon{
+        margin-left: 15px;
+        font-size: 20px;
+        padding: 3%;
+    }
+    header .login_or_register_string{
+        padding: 0;
+        width: 130px;
+        right: 0;
+        overflow: hidden;
+    }
+    .ip_div img{
+        max-width: 100%;
+    }
+    header .user_icon{
+        width: 30px;
+        padding-top: 27px;
+        border-radius: 20px;
+        margin-right: 18px;
+        margin-top: 11px;
+    }
+    .login_or_register_string a{
+        line-height: 47px;
+        font-size: 15px;
+    }
+    nav.my_nav ul li{
+        font-size: 12px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .show_message{
+        margin-top: 10px;
+    }
+    .personal_nav{
+        position: fixed;
+        /* margin-left: 81%; */
+        width: 100px;
+        /* height: 23%; */
+        z-index: 30;
+        /* background-color: white; */
+        /* margin-top: -146px; */
+        height: 0px;
+        overflow: hidden;
+        right: 0;
+        top: 0;
+    }
+    .personal_nav ul{
+        border-radius: 5px;
+        border: 1px solid #efefef;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 50px;
+        background-color: white;
+        /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); */
+    }
+    .personal_nav ul li{
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 5px;
+        box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+    }
+    .personal_nav ul li a{
+        line-height: 32px;
+    }
+    .show_message{
+        width: 96%;!important;
+    }
+    .show_message .suggest .my_width{
+        width: 100%;
+    }
+}

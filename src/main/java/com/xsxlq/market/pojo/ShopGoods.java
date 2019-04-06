@@ -7,29 +7,51 @@ import lombok.Data;
  */
 @Data
 public class ShopGoods {
-    private Integer goodsid;
+    private Integer goodsId;
 
-    private String goodsname;
+    private String goodsName;
 
-    private Double goodsprice;
+    private Double goodsPrice;
 
-    private Integer goodstypeid;
+    private Integer goodsTypeId;
 
-    private String goodsimg;
+    private String goodsImg;
 
-    private String goodsdesc;
+    private String goodsDesc;
 
-    private Integer goodsexchange;
+    private Integer goodsExchange;
 
-    private Integer goodsintegral;
+    private Integer goodsIntegral;
 
-    private String goodsdetail;
+    private String goodsDetail;
 
-    private String goodsintroduct;
+    private String goodsIntroduct;
 
-    private Integer goodsquality;
+    private Integer goodsQuality;
+
+    private Integer status;
 
     //做拓展存储使用
+
+    //被收藏数
+    private Integer allLoveNum = 0;
+
+    //商品类型
     private ShopGoodsType shopGoodsType;
+    //商品成色
     private ShopQuality shopQuality;
+
+    //是否喜欢
+    private Boolean isLove;
+
+    //所属用户
+    private UserGoods userGoods;
+
+    //用于临时存储用户信息
+    private ShopUser shopUser;
+
+    //用于临时存储用户详细信息
+    private ShopUserInfo shopUserInfo;
+
+
 }

@@ -1,10 +1,18 @@
-<nav class="my_nav" th:fragment="my_nav">
+<nav class="my_nav" th:fragment="my_nav" xmlns:shiro="http://www.w3.org/1999/xhtml">
     <ul>
         <li><a href="/">首页</a></li>
-        <li><a href="/page/mall_page.html">商城</a></li>
-        <li><a href="/page/require_mall.html">求购商城</a></li>
-
-        <li><a href="#">反馈与意见</a></li>
-        <li><a href="#">联系我们</a></li>
+        <!--<li shiro:hasPermission="user:admin"><a href="/page/mall_page.html">商城</a></li>-->
+        <li class="login_a"><a href="/page/mall_page.html">商城</a></li>
+        <li><a href="/page/suggest.html">反馈与意见</a></li>
+        <li><a href="/page/about.html">联系我们</a></li>
     </ul>
 </nav>
+<script>
+    $(".login_a").click(function(){
+        if($(".isLoginCode").val() == "1"){
+            location.href = '/page/mall_page.html';
+        }else{
+            location.href = '/page/login_page.html';
+        }
+    })
+</script>
