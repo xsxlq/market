@@ -18,4 +18,18 @@ public interface ShopGoodsMapper {
     int updateByPrimaryKey(ShopGoods record);
 
     List<ShopGoods> selectAllGoods();
+
+    /**
+     * 模糊查询
+     * @param shopGoods
+     * @return
+     */
+    List<ShopGoods> selectiveGoods(ShopGoods shopGoods);
+
+    /**
+     * 添加返回主键
+     * @param record
+     * @return
+     */
+    int insertSelectiveReturnPK(ShopGoods record);
 }

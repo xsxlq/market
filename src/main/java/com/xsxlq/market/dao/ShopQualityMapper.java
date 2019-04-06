@@ -2,6 +2,8 @@ package com.xsxlq.market.dao;
 
 import com.xsxlq.market.pojo.ShopQuality;
 
+import java.util.List;
+
 public interface ShopQualityMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface ShopQualityMapper {
     int updateByPrimaryKeySelective(ShopQuality record);
 
     int updateByPrimaryKey(ShopQuality record);
+
+    List<ShopQuality> selectAll();
 }

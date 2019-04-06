@@ -2,6 +2,8 @@ package com.xsxlq.market.dao;
 
 import com.xsxlq.market.pojo.ShopGoodsType;
 
+import java.util.List;
+
 public interface ShopGoodsTypeMapper {
     int deleteByPrimaryKey(Integer goodstypeid);
 
@@ -14,4 +16,6 @@ public interface ShopGoodsTypeMapper {
     int updateByPrimaryKeySelective(ShopGoodsType record);
 
     int updateByPrimaryKey(ShopGoodsType record);
+
+    List<ShopGoodsType> selectAll();
 }
