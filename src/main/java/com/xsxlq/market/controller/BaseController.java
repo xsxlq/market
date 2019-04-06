@@ -1,5 +1,8 @@
 package com.xsxlq.market.controller;
 
+import com.xsxlq.market.util.LoggerUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,13 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BaseController {
-    /**
-     * 测试页面跳转
-     */
-    @RequestMapping("/test")
-    public String test(Model model){
-        return "test";
-    }
+    Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * 默认首页
      * @param model
@@ -21,6 +18,12 @@ public class BaseController {
      */
     @RequestMapping("/")
     public String index(Model model){
+        logger.debug("BaseController：/");
+        return "market/index";
+    }
+    @RequestMapping("/index.html")
+    public String index2(Model model){
+        logger.debug("BaseController：/index");
         return "market/index";
     }
     /**
@@ -28,18 +31,22 @@ public class BaseController {
      */
     @RequestMapping("{page}.html")
     public String Page(@PathVariable String page){
-        System.out.println("普通调整："+page);
+        logger.debug("BaseController："+page);
         return "market/"+page;
     }
     @RequestMapping("{url}/{page}.html")
     public String Page(@PathVariable String url, @PathVariable String page){
-        System.out.println("普通调整："+page);
+        logger.debug("BaseController："+page);
         return "market/"+url+"/"+page;
     }
     @RequestMapping("{root}/{url}/{page}.html")
-    public String Page(@PathVariable String root,@PathVariable String url, @PathVariable String page){
-        System.out.println("普通调整："+page);
+    public String Page(@PathVariable String root,@PathVariable String url, @PathVariable String page,Model model){
+        logger.debug("BaseController："+page);
         return "market/"+root+"/"+url+"/"+page;
     }
-
+    @RequestMapping("/logout")
+    public String logout(Model model){
+        logger.debug("BaseController：登出");
+        return "market/index";
+    }
 }
