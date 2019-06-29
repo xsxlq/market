@@ -37,7 +37,7 @@ spring:
     #端口号465或587
 #    port: 465
     username: 614171641@qq.com
-    password: pqctnioqcjlbbbea
+    password: pqctnioqcjlbb***
     protocol: smtp
     default-encoding: UTF-8
 #配置mybatis
