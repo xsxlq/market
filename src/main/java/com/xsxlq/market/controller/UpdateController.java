@@ -24,6 +24,12 @@ public class UpdateController {
     @Autowired
     private LoginLogService loginLogService;
 
+    /**
+     * 更新用户私有信息
+     * @param id
+     * @param user
+     * @return
+     */
     @PostMapping("/updateUserPrivateInfo")
     @ResponseBody
     public int updateUserPrivateInfo(String id,ShopUserInfo user){
@@ -38,6 +44,12 @@ public class UpdateController {
         return num;
     }
 
+    /**
+     * 更新用户基本信息
+     * @param id
+     * @param user
+     * @return
+     */
     @PostMapping("/updateUserCommInfo")
     @ResponseBody
     public int updateUserCommInfo(String id,ShopUser user){

@@ -21,6 +21,14 @@ public class ShopUserController {
     @Autowired
     private ShopUserService shopUserService;
 
+    /**
+     * 用户提醒设置更新
+     * @param id
+     * @param love
+     * @param say
+     * @param model
+     * @return
+     */
     @PostMapping("updateSendEmailStatus")
     public String updateSendEmailStatus(String id,String love, String say, Model model){
         logger.info("love:"+love+"&say:"+say);

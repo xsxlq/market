@@ -32,4 +32,6 @@ public interface ShopGoodsMapper {
      * @return
      */
     int insertSelectiveReturnPK(ShopGoods record);
+
+//    List<ShopGoods> selectMyList(List<Integer> list);
 }

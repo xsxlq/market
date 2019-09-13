@@ -225,29 +225,8 @@ public class UserShopController {
     @PostMapping("/love")
     @ResponseBody
     public Map<String,String> loveIt(Love love){
-        Map<String,String> returnMap = new HashMap<>();
-        if(loveService.insert(love) == 1){
-            //添加成功
-            returnMap.put("respCode","1");
-            returnMap.put("respDesc","添加成功！");
-            //查询用户是否使用邮件提醒，判断是否发送邮件
 
-            //邮件发送较慢，开一个线程
-            new Thread(){
-                public void run(){
-                    try{
-                    isLikeEmail2User(love,1);
-                    }catch (Exception e){
-                        exceptionUtil.putException2Table(e);
-                    }
-                }
-            }.start();
-        }else{
-            //添加失败
-            returnMap.put("respCode","0");
-            returnMap.put("respDesc","添加失败！");
-        }
-        return returnMap;
+        return likeOrDisLike(love,1);
     }
 
     /**
@@ -258,48 +237,64 @@ public class UserShopController {
     @PostMapping("/disLike")
     @ResponseBody
     public Map<String,String> disLike(Love love){
+
+        return likeOrDisLike(love,0);
+    }
+
+    /**
+     * 收藏和取消收藏方法
+     * @param love
+     * @param like
+     * @return
+     */
+    public Map<String,String> likeOrDisLike(Love love,int like){
         Map<String,String> returnMap = new HashMap<>();
-        if(loveService.delete(love) == 1){
-            //取消收藏操作成功
+        String changeStr = (like == 1)? "添加":"取消";
+        if(loveService.insert(love) == 1){
             returnMap.put("respCode","1");
-            returnMap.put("respDesc","取消收藏操作成功！");
-
-                //邮件发送较慢，开一个线程
-                new Thread(){
-                    public void run(){
-                        try{
-                            isLikeEmail2User(love,0);
-                        }catch (Exception e){
-                            exceptionUtil.putException2Table(e);
-                        }
+            returnMap.put("respDesc",changeStr+"操作成功！");
+            //查询用户是否使用邮件提醒，判断是否发送邮件
+            //邮件发送较慢，开一个线程
+            new Thread(){
+                public void run(){
+                    try{
+                        isLikeEmail2User(love,like);
+                    }catch (Exception e){
+                        exceptionUtil.putException2Table(e);
                     }
-                }.start();
-
+                }
+            }.start();
         }else{
-            //添加失败
             returnMap.put("respCode","0");
-            returnMap.put("respDesc","取消收藏操作失败！");
+            returnMap.put("respDesc",changeStr+"操作失败！");
         }
         return returnMap;
     }
 
+    /**
+     * 查询用户设置并选择是否发送邮件提醒
+     * @param love
+     * @param status
+     * @throws Exception
+     */
     public void isLikeEmail2User(Love love,int status) throws Exception{
         UserGoods userGoods = userGoodsService.selectByGoodsId(love.getGoodsId());
         if(userGoods != null) {
             ShopUser shopUser = shopUserService.selectById(userGoods.getUserId());
             if(shopUser != null) {
                 int isEmail = shopUser.getLoveMsg();
+                //如果用户开启邮件提醒
                 if (isEmail == 1) {
                     String recipeEmail = shopUser.getEmail();
-                    if (recipeEmail == null || recipeEmail.indexOf("@") == -1) {
+                    //检查邮件格式
+                    if (recipeEmail != null || recipeEmail.indexOf("@") != -1) {
+                        ShopGoods shopGoods = shopGoodsService.selectByPrimaryKey(love.getGoodsId());
+                        String contentStr = "加入";
+                        if (status == 0) contentStr = "取消";
+                        //邮件内容
+                        String content = "【收藏提醒】您好，您的商品[" + shopGoods.getGoodsName() + "]被用户[***]" + contentStr + "了收藏，当前收藏数：" + loveService.selectCountByGoodsId(love.getGoodsId()) + "。";
+                        mailUtil.sendText(recipeEmail, "【校园二手市场】", content);
                     }
-                    ShopGoods shopGoods = shopGoodsService.selectByPrimaryKey(love.getGoodsId());
-                    String contentStr = "加入";
-                    if(status == 0){
-                        contentStr = "取消";
-                    }
-                    String content = "【收藏提醒】您好，您的商品[" + shopGoods.getGoodsName() + "]被用户[***]"+contentStr+"了收藏，当前收藏数：" + loveService.selectCountByGoodsId(love.getGoodsId()) + "。";
-                    mailUtil.sendText(recipeEmail, "【校园二手市场】", content);
                 }
             }
         }

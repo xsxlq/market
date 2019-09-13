@@ -5,6 +5,7 @@ import com.xsxlq.market.pojo.*;
 import com.xsxlq.market.service.*;
 import com.xsxlq.market.util.ExceptionUtil;
 import com.xsxlq.market.util.MailUtil;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,18 @@ public class ShopGoodsController {
     @Autowired
     private MailUtil mailUtil;
 
+    @Autowired
+    private SqlSessionTemplate sqlSessionTemplate;
+
+    @RequestMapping("/myList")
+    @ResponseBody
+    public List<ShopGoods> index(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        List<ShopGoods> shopGoodsList = sqlSessionTemplate.selectList("com.xsxlq.market.dao.ShopGoodsMapper.selectMyList",list);
+        return shopGoodsList;
+    }
 //    @RequestMapping("shopList")
 //    public List<ShopGoods> index(Model model){
 //        List<ShopGoods> list = shopGoodsService.selectAllGoods();
@@ -53,14 +66,14 @@ public class ShopGoodsController {
 //    }
 
     /**
-     *
+     * 商品条件分页查询
      * @param pageNum
      * @param pageSize
      * @return
      */
     @RequestMapping("pageShopList")
     @ResponseBody
-    public PageInfo<ShopGoods> getGoodsList(Integer userId,int pageNum, int pageSize,ShopGoods shopGoods){
+    public PageInfo<ShopGoods> getGoodsList(Integer userId,Integer pageNum, Integer pageSize,ShopGoods shopGoods){
         logger.debug("ShopGoodsController:shopGoods"+shopGoods);
         if(shopGoods != null){
             //去首尾空格
@@ -68,6 +81,7 @@ public class ShopGoodsController {
                 shopGoods.setGoodsName(shopGoods.getGoodsName().trim());
             }
             logger.debug("ShopGoodsController:goodsName:"+shopGoods.getGoodsName());
+            //约定查询全部
             if("all".equals(shopGoods.getGoodsName())){
                 shopGoods.setGoodsName(null);
             }
@@ -89,6 +103,12 @@ public class ShopGoodsController {
             if(shopGoods.getGoodsQuality() == 11){
                 shopGoods.setGoodsQuality(null);
             }
+        }
+        if(pageNum == null){
+            pageNum = 0;
+        }
+        if(pageSize == null){
+            pageSize = 0;
         }
         return shopGoodsService.getPageGoodsList(userId,pageNum,pageSize,shopGoods);
     }
@@ -185,15 +205,15 @@ public class ShopGoodsController {
                         }
                     }
                 }.start();
-                return "/market/success";
+                return "market/success";
             }else{
                 model.addAttribute("result","评论失败！");
-                return "/market/error";
+                return "market/error";
             }
         }catch (Exception e){
             model.addAttribute("result","哟，出现了异常。----"+e.getMessage());
             logger.error(e.getMessage());
-            return "/market/error";
+            return "market/error";
         }
     }
 

@@ -19,11 +19,15 @@ public class ExceptionUtil {
     private MyErrorService myErrorService;
     private Logger logger = LoggerFactory.getLogger(UploadController.class);
 
+    /**
+     * 异常信息入表
+     * @param ex
+     * @return
+     */
     public  Map putException2Table(Exception ex){
         Map map = new HashMap();
         map.put("code", 100);
         map.put("msg", ex.getMessage());
-
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream pout = new PrintStream(out);
         ex.printStackTrace(pout);
@@ -33,8 +37,8 @@ public class ExceptionUtil {
             out.close();
         } catch (Exception e) {
         }
-        logger.error(ret);
         MyError myError = new MyError();
+        //信息截取部分，防止大数据入表失败
         if(ret.length() > 19999){
             myError.setContent(ret.substring(0,19999));
         }else{

@@ -25,6 +25,14 @@ public class FileUtil {
     public static final String FILETYPE = "image";
     public static final Integer FILESIZE = 2; //单位：M
 
+    /**
+     * 上传
+     * @param file
+     * @param savaPath
+     * @param fileType
+     * @param fileSize
+     * @return
+     */
     public static Map<String,String> upload(@RequestParam("file") MultipartFile file, String savaPath,String fileType,int fileSize){
         Map<String,String> returnMap = new HashMap<>();
         returnMap.put("respCode","0");

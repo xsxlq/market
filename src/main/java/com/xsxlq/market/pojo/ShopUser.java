@@ -1,5 +1,6 @@
 package com.xsxlq.market.pojo;
 
+
 import lombok.Data;
 
 import java.sql.Timestamp;

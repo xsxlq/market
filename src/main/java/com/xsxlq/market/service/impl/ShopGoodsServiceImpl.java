@@ -69,7 +69,7 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
             sg.setShopQuality(sq);
             list.add(sg);
         }
-        list = beforeList;
+        //list = beforeList;
         return list;
     }
 
@@ -88,10 +88,10 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
         PageHelper.startPage(pageNum,pageSize);
         List<ShopGoods> pageGoodsList = null;
         if(shopGoods == null){
-//            System.out.println("ShopGoodsServiceImpl:查询全部");
+            //查询全部
             pageGoodsList = selectAllGoods(userId);
         }else{
-//            System.out.println("ShopGoodsServiceImpl:条件查询");
+            //条件查询
             pageGoodsList = selectiveGoods(userId,shopGoods);
         }
         PageInfo<ShopGoods> pageInfo = new PageInfo<>(pageGoodsList);

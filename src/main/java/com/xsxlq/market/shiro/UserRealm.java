@@ -37,7 +37,6 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        System.out.println("执行授权...");
         logger.info("执行授权...");
         //给资源进行授权
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -53,16 +52,14 @@ public class UserRealm extends AuthorizingRealm {
     }
 
     /**
-     * 执行认证逻辑
+     * Shiro认证逻辑
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-//        System.out.println("执行认证...");
         logger.info("执行认证...");
-        //编写Shiro判断逻辑，判断用户名和密码
         //1.判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //获取用户对象，用于添加登录时间日志
