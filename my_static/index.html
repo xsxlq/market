@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>C2C二手交易平台</title>
+		<link href="static/css/home_page/home_page_circle.css" rel="stylesheet">
+		<link href="static/css/home_page/header_and_nav.css" rel="stylesheet">
+		<link href="static/css/home_page/bottom_ifon_and_feature.css" rel="stylesheet">
+		<script src="static/js/comm/jquery_3.3.1.js"></script>
+		<script src="static/js/home/home_page_circle.js"></script>
+		<script src="static/js/home/header_model_js.js"></script>
+		<link rel="stylesheet" href="static/iconfont/iconfont.css">
+		<script src="static/js/showIsStaticPageNeedHelp.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="static/css/showIsStaticPageNeedHelp.css"/>
+		<style>
+			.icon-weizhi{
+            font-size: 14px;
+            color: red;
+            font-weight: 700;
+        }
+    </style>
+	</head>
+	<body>
+		<header>
+			<div class="home_icon">
+				<a class="showStaticPage" style="text-decoration: none;color: white">C2C</a>
+			</div>
+			<div class="search_div">
+				<input type="text" placeholder="Search" name="search" class="nav_search_input">
+				<input type="hidden" class="nav_search_input_copy">
+				<span class="search_icon"></span>
+			</div>
+
+			<div class="login_or_register_string"><span class="user_icon"></span>
+
+				<a class="showStaticPage">登录/注册</a>
+				<input type="hidden" value="0" class="isLoginCode">
+				　　
+
+
+			</div>
+		</header>
+		<nav class="my_nav">
+			<ul>
+				<li><a class="showStaticPage">首页</a></li>
+				<!--<li shiro:hasPermission="user:admin"><a href="/page/mall_page.html">商城</a></li>-->
+				<li class="login_a"><a class="showStaticPage">商城</a></li>
+				<li><a class="showStaticPage">反馈与意见</a></li>
+				<li><a class="showStaticPage">联系我们</a></li>
+			</ul>
+		</nav>
+
+		<div class="my_slider">
+			<div class="my_slide" style="opacity: 1; left: 10%; z-index: 0; display: none;">
+				<h1 style="left: -200px; opacity: 0; display: none;">华为 - 更美好的全联接世界</h1>
+				<p style="left: -200px; opacity: 0; display: none;">
+				</p>
+				<div class="slide_img" style="left: -200px; opacity: 0; display: none;">
+					<img src="static/img/home/58a7b127N54121e80.jpg" style="width: 400px;height: 270px">
+				</div>
+			</div>
+			<div class="my_slide" style="opacity: 1; left: 10%; z-index: 0; display: none;">
+				<h1 style="left: -200px; opacity: 0; display: none;">Apple MacBook Air 13.3英寸笔记本电脑</h1>
+				<p style="left: -200px; opacity: 0; display: none;">
+				</p>
+				<div class="slide_img" style="left: -200px; opacity: 0; display: none;">
+					<img src="static/img/home/57b12a31N8f4f75a3.jpg" style="width: 400px;height: 270px">
+				</div>
+			</div>
+			<div class="my_slide current" style="opacity: 1; left: 10%; z-index: 0;">
+				<h1 style="left: -200px; opacity: 0; display: none;">美的（Midea）电磁炉WK2102T</h1>
+				<p style="left: -200px; opacity: 0; display: none;">
+					美的WK2102T，精准大火力，快享美味，六大烹饪功能，四大辅助功能，4D防水技术，防泼防溅，超大触摸键，简易更耐用。
+				</p>
+				<div class="slide_img" style="left: -200px; opacity: 0; display: none;">
+					<img src="static/img/home/583930a6N11a0352c.jpg" style="width: 400px;height: 270px">
+				</div>
+			</div>
+			<div class="my_slide" style="opacity: 0.999978; left: 10.0016%; z-index: 0;">
+				<h1 style="left: 10%; opacity: 1;">卡地亚(Cartier)手表W6920071 </h1>
+				<p style="left: 10%; opacity: 1;">
+				</p>
+				<div class="slide_img" style="left: 60%; opacity: 1;">
+					<img src="" style="width: 400px;height: 270px">
+				</div>
+			</div>
+			<div class="my_slide" style="opacity: 1; left: 10%; z-index: 0; display: none;">
+				<h1 style="left: -200px; opacity: 0; display: none;">罗技G413机械游戏键盘</h1>
+				<p style="left: -200px; opacity: 0; display: none;">
+				</p>
+				<div class="slide_img" style="left: -200px; opacity: 0; display: none;">
+					<img src="static/img/home/58f834abNfcc1c117.jpg" style="width: 400px;height: 270px">
+				</div>
+			</div>
+			<div class="left_border">
+				<span class="left_turn"></span>
+			</div>
+			<div class="right_border">
+				<span class="right_turn"></span>
+			</div>
+		</div>
+		<div class="featured_products" style="overflow: hidden;">
+			<h2>精选的商品</h2>
+			<div class="featured_products_all" style="overflow: hidden;">
+				<figure class="product showStaticPage" onclick="goodsInfo(4)">
+					<input type="hidden" class="willLoveGoodsId" value="4">
+					<div class="product_img_div">
+						<img src="upload/img/1557158677191.jpg" class="show_img">
+					</div>
+					<p class="show_tip">宽松T恤女短袖2019新款夏韩版网红ins潮体恤纯棉学生半袖洋气上衣</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥30.00</span><br>
+					<a class="product_name">【全新】宽松T恤女短袖2019新款夏韩版网红ins潮体恤纯棉学生半袖洋气上衣</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【2】人收藏</span>
+				</figure>
+				<figure class="product showStaticPage" onclick="goodsInfo(3)">
+					<input type="hidden" class="willLoveGoodsId" value="3">
+					<div class="product_img_div">
+						<img src="upload/img/1557158234889.jpg" class="show_img">
+					</div>
+					<p class="show_tip">游戏学（游戏研究专著开山之作） 国内游</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥50.00</span><br>
+					<a class="product_name">【全新】游戏学（游戏研究专著开山之作） 国内游</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【1】人收藏</span>
+				</figure>
+				<figure class="product showStaticPage" onclick="goodsInfo(5)">
+					<input type="hidden" class="willLoveGoodsId" value="5">
+					<div class="product_img_div">
+						<img src="upload/img/1557485420785.jpg" class="show_img">
+					</div>
+					<p class="show_tip">PHJ 短袖t恤女宽松2019夏季新品韩版大</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥62.00</span><br>
+					<a class="product_name">【全新】PHJ 短袖t恤女宽松2019夏季新品韩版大</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【1】人收藏</span>
+				</figure>
+				<figure class="product showStaticPage" onclick="goodsInfo(1)">
+					<input type="hidden" class="willLoveGoodsId" value="1">
+					<div class="product_img_div">
+						<img src="upload/img/1556278610299.jpg" class="show_img">
+					</div>
+					<p class="show_tip">Apple iPhone XR (A2108) 128GB 黑色 移动联通电信4G手机 双卡双待</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥5799.00</span><br>
+					<a class="product_name">【全新】Apple iPhone XR (A2108) 128GB 黑色 移动联通电信4G手机 双卡双待</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【1】人收藏</span>
+				</figure>
+				<figure class="product showStaticPage" onclick="goodsInfo(6)">
+					<input type="hidden" class="willLoveGoodsId" value="6">
+					<div class="product_img_div">
+						<img src="upload/img/1557485510056.jpg" class="show_img">
+					</div>
+					<p class="show_tip">2019新款夏季韩版前后印花字</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥38.00</span><br>
+					<a class="product_name">【全新】2019新款夏季韩版前后印花字</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【1】人收藏</span>
+				</figure>
+				<figure class="product showStaticPage" onclick="goodsInfo(2)">
+					<input type="hidden" class="willLoveGoodsId" value="2">
+					<div class="product_img_div">
+						<img src="upload/img/1557157991993.jpg" class="show_img">
+					</div>
+					<p class="show_tip">月霞连衣裙2019春夏季新品女装新款韩</p>
+					<input class="product_id" type="hidden">
+					<span class="product_cost">¥138.00</span><br>
+					<a class="product_name">【全新】月霞连衣裙2019春夏季新品女装新款韩</a><br>
+					<span class="product_area"><span class="iconfont icon-weizhi"></span> 河南科技学院</span><br>
+					<span class="product_area">有【1】人收藏</span>
+				</figure>
+			</div>
+			<div style="clear: both;height: 75px;"></div>
+			<footer>
+				<p>Copyright © 2019.Company name All rights reserved.<a href="/"></a></p>
+			</footer>
+		</div>
+		<!-- 静态页面提示 -->
+		<div id="showIsStaticPageNeedHelp"></div>
+	</body>
+	<script>
+		$(function(){
+			$(".showStaticPage").click(function(){
+				easyTOshowIsStaticPageNeedHelp("static/img/pay.png");
+			})
+		})
+		
+	</script>
+</html>
