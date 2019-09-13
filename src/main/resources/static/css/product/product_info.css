@@ -23,6 +23,14 @@ body{
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
     display: inline-block;
 }
+
+@media only screen and (max-width: 767px){
+    .publish_product_div{
+        width: 95%;!important;
+        overflow: hidden;
+    }
+
+}
 .product_img_div {
     width: 30%;
     height: auto;

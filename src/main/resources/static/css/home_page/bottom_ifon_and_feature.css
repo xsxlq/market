@@ -26,7 +26,7 @@
     transition: all 0.65s;
     position: relative;
     float: left;
-    margin-left: 16px;
+    margin-left: 1px;
     margin-right: 16px;
     display: block;
     /*text-align: center;*/
@@ -36,6 +36,12 @@
     border-radius: 6px;
     padding: 12px 9px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+}
+@media only screen and (max-width: 767px){
+    .featured_products .product {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
 }
 
 .featured_products .product .product_img_div {

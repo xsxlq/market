@@ -19,6 +19,17 @@
     goodsId, goodsName, goodsPrice, goodsTypeId, goodsImg, goodsDesc, goodsExchange, 
     goodsIntegral, goodsDetail, goodsIntroduct, goodsQuality, status
   </sql>
+
+  <select id="selectMyList" resultType="com.xsxlq.market.pojo.ShopGoods">
+    select
+    goodsId as goodsId,goodsName as goodsName,goodsPrice as goodsPrice
+    from shopgoods
+    where goodsId in
+    <foreach collection="list" item="goodsId" index="index" open="(" close=")" separator=",">
+      #{goodsId}
+    </foreach>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

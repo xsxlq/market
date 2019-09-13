@@ -51,9 +51,9 @@
     </style>
 </head>
 <body>
-<header th:include="/market/header :: copy"></header>
-<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
-<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<header th:include="market/header :: copy"></header>
+<div th:include="market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="market/my_nav :: my_nav" class="my_nav"></nav>
 <div class="temp_content">
     <!--注意需要加一个br，不然会在同一行显示-->
     <div class="product_content_div">
@@ -72,7 +72,7 @@
     <div class="pagination_div">
     </div>
     <footer>
-        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+        <p>Copyright © 2019.Company name All rights reserved.<a href="/"></a></p>
     </footer>
 </div>
 </body>

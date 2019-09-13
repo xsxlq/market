@@ -1,6 +1,6 @@
 #配置服务器
 server:
-  port: 8080
+  port: 8081
 #配置spring
 spring:
   servlet:
@@ -37,7 +37,7 @@ spring:
     #端口号465或587
 #    port: 465
     username: 614171641@qq.com
-    password: pqctnioqcjlbbbea
+    password: pqctnioqcjlbb***
     protocol: smtp
     default-encoding: UTF-8
 #配置mybatis
@@ -59,16 +59,17 @@ fileUpload:
 
 #日志
 logging:
+# logging.pattern.console=%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n
 #  file:   # 日志文件,绝对路径或相对路径
 #  path:   # 保存日志文件目录路径
 #  config: # 日志配置文件,Spring Boot默认使用classpath路径下的日志配置文件,如:logback.xml
   path:
   level:
-    com.xsxlq: info
+    com.xsxlq: debug
   file: F:/market/spring-boot-market.log
 
 
 #  path: concretepage/logs
-#  pattern:
+    #  pattern:
 #    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
-#    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  #   console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'

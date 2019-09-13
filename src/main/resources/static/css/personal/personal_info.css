@@ -9,12 +9,19 @@
     width: 60%;
     height: auto;
     margin-left: 20%;
-    margin-top: 12%;
+    margin-top: 2%;
     /*background-color: red;*/
     background-color: white;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     display: inline-block;
+}
+@media only screen and (max-width: 767px){
+    .publish_product_div {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 3%;
+    }
 }
 #accordion {
     width: 100%;

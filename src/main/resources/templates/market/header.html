@@ -19,7 +19,7 @@
             <input type="hidden" value="0" class="isLoginCode">
 　　     </shiro:guest>
         <shiro:user>
-            <div th:include="/market/personal_nav :: personal_nav" class="personal_nav"></div>
+            <div th:include="market/personal_nav :: personal_nav" class="personal_nav"></div>
             <input type="hidden" value="1" class="isLoginCode">
             <a href="#" class="user_name_a"></a>
             <span class="head-userId" style="display: none"><shiro:principal property="id"/></span>

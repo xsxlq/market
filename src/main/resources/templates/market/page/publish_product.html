@@ -76,9 +76,9 @@
     </style>
 </head>
 <body>
-<header th:include="/market/header :: copy"></header>
-<div th:include="/market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
-<nav th:include="/market/my_nav :: my_nav" class="my_nav"></nav>
+<header th:include="market/header :: copy"></header>
+<div th:include="market/short_nav_show :: short_nav_show" class="short_nav_show"></div>
+<nav th:include="market/my_nav :: my_nav" class="my_nav"></nav>
 <div class="top_content">
     <shiro:user>
         <div class="userId" style="display: none" type="hidden"><shiro:principal property="id"/></div>
@@ -196,7 +196,7 @@
     </div>
     </shiro:user>
     <footer>
-        <p>Copyright © 2017.Company name All rights reserved.<a href="/"></a></p>
+        <p>Copyright © 2019.Company name All rights reserved.<a href="/"></a></p>
     </footer>
 </div>
 
